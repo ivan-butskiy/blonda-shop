@@ -23,7 +23,8 @@ class Navbar extends Component {
             <Fragment>
                 <nav className='navbar navbar-expand-lg navbar-light'>
                     <div className='container'>
-                        <a className='navbar-brand' href='/'>BlondaShop</a>
+                        <a className='navbar-brand mr-3' href='/'>BlondaShop</a>
+                        <UserPreview />
                         <button 
                             className='navbar-toggler'
                             type='button'
@@ -43,19 +44,19 @@ class Navbar extends Component {
                                     <a className="nav-link" href="/">Женщинам</a>
                                 </li>
                                 <li className="nav-item active">
-                                    <a className="nav-link" href="/">Детям</a>
+                                    <a className="nav-link" href="/">Новинки</a>
                                 </li>
                                 <li className="nav-item active">
-                                    <a className="nav-link" href="/">Акция</a>
+                                    <a className="nav-link" href="/">Распродажа</a>
                                 </li>
                                 <li className="nav-item active">
                                     <a className="nav-link" href="/">Контакты</a>
                                 </li>
-                            </ul>
+                            </ul>    
                         </div>
                     </div>
-                    <UserPreview />
-                    <a className='navbar-brand' href='/'>Корзина</a>
+                    
+                    
                 </nav>
                 { this.props.children }
             </Fragment>

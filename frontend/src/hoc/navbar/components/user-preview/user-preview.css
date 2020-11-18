@@ -1,0 +1,12 @@
+.dropdown a {
+    font-family: Roboto;
+    font-size: 16px;
+}
+
+button a {
+    font-family: Roboto;
+    font-size: 16px;
+    color: white;
+    /* font-weight: bold;
+    box-shadow: none; */
+}

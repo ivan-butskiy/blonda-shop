@@ -135,7 +135,7 @@ class Product(models.Model):
     description = models.TextField(verbose_name='описание')
     price = models.DecimalField(max_digits=6, decimal_places=2, verbose_name='стоимость')
     new_product = models.BooleanField(default=False, blank=True, verbose_name='новинка')
-    discount = models.IntegerField(blank=True, default=False, verbose_name='скидка в гривнах')
+    old_price = models.PositiveIntegerField(blank=True, help_text='больше, чем нынешняя', verbose_name='старая цена')
 
     adding_date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name='дата добавления')
     update_date = models.DateTimeField(auto_now=True, blank=True, verbose_name='дата обновления')
@@ -148,3 +148,16 @@ class Product(models.Model):
     image_4 = models.ImageField(blank=True, upload_to='images/%Y-%m-%d/', verbose_name='картинка 4')
     image_5 = models.ImageField(blank=True, upload_to='images/%Y-%m-%d/', verbose_name='картинка 5')
     image_6 = models.ImageField(blank=True, upload_to='images/%Y-%m-%d/', verbose_name='картинка 6')
+
+    is_published = models.BooleanField(blank=True, null=True, default=True, verbose_name='опубликован')
+
+    class Meta:
+        verbose_name = 'товар'
+        verbose_name_plural = 'товары'
+        ordering = ['-update_date', 'title']
+
+    def __str__(self):
+        return self.title
+
+
+# TODO сделать нормальные цветы и размеры

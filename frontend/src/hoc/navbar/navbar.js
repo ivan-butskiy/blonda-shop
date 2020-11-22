@@ -23,7 +23,7 @@ class Navbar extends Component {
             <Fragment>
                 <nav className='navbar navbar-expand-lg navbar-light'>
                     <div className='container'>
-                        <a className='navbar-brand mr-3' href='/'>BlondaShop</a>
+                        <Link className='navbar-brand mr-3' to='/'>BlondaShop</Link>
                         <UserPreview />
                         <button 
                             className='navbar-toggler'

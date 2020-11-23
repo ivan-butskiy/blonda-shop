@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.generics import RetrieveAPIView, ListAPIView
+from rest_framework.generics import RetrieveAPIView, ListAPIView, RetrieveAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.settings import api_settings
 
@@ -9,7 +9,8 @@ from .serializers import (
     SectionSerializer,
     CategoryListSerializer,
     SubcategorySerializer,
-    ProductPreviewSerializer)
+    ProductPreviewSerializer,
+    ProductDetailSerializer)
 
 from .models import Section, Category, Subcategory, Product
 
@@ -56,9 +57,12 @@ class ProductListView(ListAPIView):
 
     def get_queryset(self):
         subcategory = Subcategory.objects.get(slug=self.kwargs['slug'])
-        products = Product.objects.filter(subcategory_id=subcategory.id)
+        products = Product.objects.filter(subcategory_id=subcategory.id, is_published=True)
         return products
 
 
-# TODO оптимизировать в SubcategoriesListView запрос на получение только тех подкатегорий
-# у которых есть товары
+class ProductDetailView(RetrieveAPIView):
+    queryset = Product.objects.all()
+    lookup_field = 'slug'
+    permission_classes = [AllowAny]
+    serializer_class = ProductDetailSerializer

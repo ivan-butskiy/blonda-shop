@@ -13,6 +13,7 @@ class Section(models.Model):
     class Meta:
         verbose_name='раздел'
         verbose_name_plural='разделы'
+        ordering = ['pk']
 
     def __str__(self):
         return self.title
@@ -29,7 +30,7 @@ class Category(models.Model):
         verbose_name_plural = 'категории'
 
     def __str__(self):
-        return self.title
+        return f'{self.title}, {self.section}'
 
 
 class Subcategory(models.Model):
@@ -42,9 +43,10 @@ class Subcategory(models.Model):
     class Meta:
         verbose_name = 'подкатегория'
         verbose_name_plural = 'подкатегории'
+        ordering = ['pk']
 
     def __str__(self):
-        return self.title
+        return f'{self.title} ({self.category})'
 
 
 class Brand(models.Model):
@@ -74,61 +76,37 @@ class FeedBack(models.Model):
         return self.text
 
 
+class Size(models.Model):
+    size = models.CharField(max_length=10, verbose_name='размер')
+
+    class Meta:
+        verbose_name = 'размер'
+        verbose_name_plural = 'размеры'
+        ordering = ['size']
+    
+    def __str__(self):
+        return self.size
+
+
+class Color(models.Model):
+    color = models.CharField(max_length=30, verbose_name='цвет')
+
+    class Meta:
+        verbose_name = 'цвет'
+        verbose_name_plural = 'цвета'
+        ordering = ['color']
+
+    def __str__(self):
+        return self.color
+
+
 class Product(models.Model):
 
-    SIZES = (
-        ('Одежда',(
-            ('XS', 'XS'),
-            ('S', 'S'),
-            ('M', 'M'),
-            ('L', 'L'),
-            ('XL', 'XL'),
-            ('XXL', 'XXL'),
-            ('XXL', 'XXL'),
-            ('XXXL', 'XXXL')
-            )
-        ),
-        ('Обувь',(
-            ('33,5', '33,5'),
-            ('34,5', '34,5'),
-            ('35', '35'),
-            ('35,5', '35,5'),
-            ('36', '36'),
-            ('36,5', '36,5'),
-            ('37', '37'),
-            ('37,5', '37,5'),
-            ('38', '38'),
-            ('38,5', '38,5'),
-            ('39', '39'),
-            ('39,5', '39,5'),
-            ('40', '40'),
-            ('40,5', '40,5'),
-            ('41', '41'),
-            ('41,5', '41,5'),
-            ('42', '42'),
-            ('42,5', '42,5'),
-            ('43', '43'),
-            ('43,5', '43,5'),
-            ('44', '44'),
-            ('44,5', '44,5'),
-            ('45', '45'),
-            ('45,5', '45,5'),
-            ('46', '46'),
-            ('46,5', '46,5'),
-            ('47', '47'),
-            ('47,5', '47,5'),
-            ('48', '48'),
-            ('48,5', '48,5'),
-            ('49', '49'),
-            ('49,5', '49,5'),
-            ('50', '50')
-            )
-        )
-    )
 
     slug = models.SlugField(unique=True, verbose_name='слаг')
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, verbose_name='подкатегория')
-    sizes = models.CharField(max_length=50, choices=SIZES, verbose_name='размеры')
+    sizes = models.ManyToManyField(Size, verbose_name='размеры')
+    color = models.ManyToManyField(Color, verbose_name='цвета')
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, verbose_name='бренд')
 
     title = models.CharField(max_length=75, help_text='макс. длина 75 символов', verbose_name='название товара')
@@ -149,7 +127,7 @@ class Product(models.Model):
     image_5 = models.ImageField(blank=True, upload_to='images/%Y-%m-%d/', verbose_name='картинка 5')
     image_6 = models.ImageField(blank=True, upload_to='images/%Y-%m-%d/', verbose_name='картинка 6')
 
-    is_published = models.BooleanField(blank=True, null=True, default=True, verbose_name='опубликован')
+    is_published = models.BooleanField(blank=True, default=True, verbose_name='опубликован')
 
     class Meta:
         verbose_name = 'товар'

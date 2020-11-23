@@ -30,4 +30,9 @@ export default class BlondaShopService {
         return response;
     };
 
+    getProductDetail = async (slug) => {
+        const response = await this.getResource(`api/shop/products/detail/${slug}/`);
+        return response;
+    };
+
 };

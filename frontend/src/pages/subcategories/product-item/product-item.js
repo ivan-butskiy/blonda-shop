@@ -22,7 +22,7 @@ class ProductItem extends Component {
             <div className='col-md-4 col-sm-6 mb-2'>
                 <div className='product-grid3'>
                     <div className='product-image3'>
-                        <Link to='/'>
+                        <Link to={`/products/detail/${slug}/`}>
                             <img className='pic-1' src={ header_image } alt={ title } />
                             <img className='pic-2' src={image_1 ? image_1 : header_image } alt={ title } />
                         </Link>

@@ -22,6 +22,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'djoser',
+    'ckeditor',
+    'ckeditor_uploader',
 
     'accounts',
     'shop'
@@ -142,6 +144,17 @@ DJOSER = {
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
     },
 }
+
+CKEDITOR_CONFIGS = {
+    'awesome_ckeditor': {
+        'toolbar': 'Basic',
+    },
+    "default": {
+        "removePlugins": "stylesheetparser",
+    }
+}
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 # EMAIL_USE_TLS = True
 # EMAIL_HOST = 'smtp.gmail.com'

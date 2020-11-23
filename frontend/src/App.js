@@ -8,6 +8,7 @@ import Login from './pages/login';
 import SignUp from './pages/signup';
 import CategoriesList from './pages/categories/categories';
 import SubcategoriesList from './pages/subcategories/subcategories';
+import ProductDetail from './pages/product-detail/product-detail';
 
 import store from './store';
 
@@ -21,6 +22,11 @@ const App = () => (
           <Route path='/' exact component={Home} />
           <Route path='/login/' component={Login} exact />
           <Route path='/signup/' component={SignUp} />
+          <Route path='/products/detail/:slug/'
+            render={({match}) => {
+              return <ProductDetail slug={match.params.slug} />
+              }
+            } exact />
           <Route path='/:section/:category/'
             render={({match}) => {
               return <SubcategoriesList section={match.params.section} category={match.params.category} />

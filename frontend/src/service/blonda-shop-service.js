@@ -16,7 +16,7 @@ export default class BlondaShopService {
     };
 
     getCategoriesList = async (slug) => {
-        const response = await this.getResource(`api/shop/${slug}/`);
+        const response = await this.getResource(`api/shop/categories/${slug}/`);
         return response;
     };
     

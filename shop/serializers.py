@@ -40,19 +40,38 @@ class CategoryListSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class CategoryPreviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['slug']
+
+
 class SubcategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Subcategory
         fields = '__all__'
 
+class SubcategoryPreviewSerializer(serializers.ModelSerializer):
+
+    category = CategoryPreviewSerializer(read_only=True)
+
+    class Meta:
+        model = Subcategory
+        fields = ['title', 'slug', 'category']
+
 
 class ProductPreviewSerializer(serializers.ModelSerializer):
+    # subcategory = SubcategoryPreviewSerializer(read_only=True)
+
+
     class Meta:
         model = Product
-        fields = ('id', 'slug', 'title', 'price', 'new_product', 'old_price', 'header_image', 'image_1')
+        fields = ('id', 'slug', 'title', 'price', 'subcategory', 'new_product', 'old_price', 'header_image', 'image_1')
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
+
+    subcategory = SubcategoryPreviewSerializer(read_only=True)
 
     brand = BrandSerializer(read_only=True)
     sizes = SizeSerializer(many=True, read_only=True)

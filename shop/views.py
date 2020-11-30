@@ -10,7 +10,8 @@ from .serializers import (
     CategoryListSerializer,
     SubcategorySerializer,
     ProductPreviewSerializer,
-    ProductDetailSerializer)
+    ProductDetailSerializer,
+    SubcategoryPreviewSerializer)
 
 from .models import Section, Category, Subcategory, Product
 
@@ -44,8 +45,7 @@ class SubcategoriesListView(ListAPIView):
     serializer_class = SubcategorySerializer
 
     def get_queryset(self):
-        section = Section.objects.get(slug=self.kwargs['slug_section'])
-        category = Category.objects.get(section_id=section.id, slug=self.kwargs['slug_category'])
+        category = Category.objects.get(slug=self.kwargs['slug_category'])
         subcategories = Subcategory.objects.filter(category_id=category.id, product__gt=0).distinct()
         return subcategories
 
@@ -66,3 +66,34 @@ class ProductDetailView(RetrieveAPIView):
     lookup_field = 'slug'
     permission_classes = [AllowAny]
     serializer_class = ProductDetailSerializer
+
+
+class AllProductsPreviewList(ListAPIView):
+    queryset = Product.objects.all()
+    permission_classes = [AllowAny]
+    serializer_class = ProductPreviewSerializer
+
+    def get_queryset(self):
+        products = Product.objects.filter(is_published=True)
+        return products
+
+
+# class SubcategoriesDetailView(RetrieveAPIView):
+#     query_set = Subcategory.objects.all()
+#     lookup_field = 'slug'
+#     permission_classes = [AllowAny]
+#     serializer_class = SubcategoryPreviewSerializer
+
+#     def get_queryset(self):
+#         subcategory = Subcategory.objects.get(slug=self.kwargs['slug_subcategory'])
+#         return subcategory
+
+
+class SubcategoriesDetailView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, product_slug):
+        product = Product.objects.get(slug=product_slug)
+        subcategory = Subcategory.objects.get(pk=product.subcategory.pk)
+        serializer = SubcategoryPreviewSerializer(subcategory)
+        return Response(serializer.data)

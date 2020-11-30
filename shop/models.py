@@ -132,7 +132,7 @@ class Product(models.Model):
     class Meta:
         verbose_name = 'товар'
         verbose_name_plural = 'товары'
-        ordering = ['-update_date', 'title']
+        ordering = ['-update_date', '-adding_date', 'title']
 
     def __str__(self):
         return self.title

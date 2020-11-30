@@ -4,14 +4,18 @@ from .views import (
     CategoriesListView,
     SubcategoriesListView,
     ProductListView,
-    ProductDetailView
+    ProductDetailView,
+    AllProductsPreviewList,
+    SubcategoriesDetailView
     )
 
 
 urlpatterns = [
     path('', SectionListView.as_view()),
+    path('products/all/', AllProductsPreviewList.as_view()),
     path('products/<str:slug>/', ProductListView.as_view()),
     path('products/detail/<str:slug>/', ProductDetailView.as_view()),
     path('categories/<str:slug>/', CategoriesListView.as_view()),
-    path('<str:slug_section>/<str:slug_category>/', SubcategoriesListView.as_view()),
+    path('subcategories/<str:slug_category>/', SubcategoriesListView.as_view()),
+    path('subcategory/<str:product_slug>/', SubcategoriesDetailView.as_view()),
 ]

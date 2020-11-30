@@ -17,13 +17,12 @@ class CategoryItem extends Component {
             slug: this.props.category.slug,
             title: this.props.category.title,
             image: this.props.category.category_image,
-            section: this.props.section
         });
     };
 
     render() {
 
-        const { slug, image, title, section } = this.state;
+        const { slug, image, title } = this.state;
 
         return (
             <div className="col-md-4 mb-3 mb-lg-0">
@@ -31,7 +30,7 @@ class CategoryItem extends Component {
                 <div className="hover-overlay"></div>
                     <div className="hover-1-content px-5 py-4">
                         <h3 className="hover-1-title text-uppercase font-weight-bold mb-0">
-                            <Link to={`/${section}/${slug}/`}>{ title }</Link>
+                            <Link to={`/products/${slug}/`}>{ title }</Link>
                         </h3>
                     </div>
                 </div>

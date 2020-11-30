@@ -20,8 +20,8 @@ export default class BlondaShopService {
         return response;
     };
     
-    getSubcategoriesList = async (section, category) => {
-        const response = await this.getResource(`api/shop/${section}/${category}/`);
+    getSubcategoriesList = async (category) => {
+        const response = await this.getResource(`api/shop/subcategories/${category}/`);
         return response;
     };
 
@@ -32,6 +32,16 @@ export default class BlondaShopService {
 
     getProductDetail = async (slug) => {
         const response = await this.getResource(`api/shop/products/detail/${slug}/`);
+        return response;
+    };
+
+    getAllProducts = async () => {
+        const response = await this.getResource(`api/shop/products/all/`);
+        return response;
+    };
+
+    getSubcategoryDetail = async (productSlug) => {
+        const response = await this.getResource(`api/shop/subcategory/${productSlug}/`);
         return response;
     };
 

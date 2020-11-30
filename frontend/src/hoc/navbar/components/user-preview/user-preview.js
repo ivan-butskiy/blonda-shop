@@ -8,25 +8,21 @@ import './user-preview.css';
 
 const UserPreview = ({ isAuthenticated, logout  }) => {
 
-    const guestLoginButton = () => (
-
-        <button type="button" className="btn btn-primary">
-            <i className="fa fa-sign-in mr-2"></i>
-            <Link to='/login'>Вход
-            </Link>
-        </button>
- 
-  
+    const guestLoginButton = () => (        
+        <li className='nav-item text-center'>
+            <i className='far fa-sign-in-alt'></i>
+            <Link className='nav-link' to='/login/'>Вход</Link>
+        </li>
     )
 
     const userInfo = () => (
-        <div className="dropdown">
-            <a className="btn dropdown-toggle" href="/" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-user-circle mr-2" aria-hidden="true"></i>
-            Мой аккаунт
-            </a>
-            <div className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <Link className="dropdown-item" to="/home/" onClick={ logout }>Выйти</Link>
+        <div className='row dropdown text-center'>
+            <i class='col-lg-12 far fa-user-circle'></i>
+            <Link className='col-lg-12 btn dropdown-toggle' href='/' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+            Аккаунт
+            </Link>
+            <div className='dropdown-menu' aria-labelledby='dropdownMenuLink'>
+                <Link className='dropdown-item' to='/' onClick={ logout }>Выйти</Link>
             </div>
         </div>
     )

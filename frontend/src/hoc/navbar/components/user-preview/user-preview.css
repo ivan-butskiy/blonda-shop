@@ -1,4 +1,4 @@
-.dropdown a {
+/* .dropdown a {
     font-family: Roboto;
     font-size: 16px;
 }
@@ -9,4 +9,33 @@ button a {
     color: white;
     /* font-weight: bold;
     box-shadow: none; */
+
+.dropdown {
+    margin-top: 1rem;
 }
+
+.dropdown .dropdown-menu .dropdown-item {
+    color: #464646;
+}
+
+.dropdown .fa-user-circle {
+    color: #ff9900;
+    font-size: 22px;
+    padding: 0;
+}
+
+.dropdown .dropdown-toggle {
+    color: rgba(255,255,255,.5);
+    font-size: 16px;
+    padding: 0;
+    border: 0px;
+    margin-top: 0.2rem;
+}
+
+.dropdown .dropdown-toggle:hover {
+    color: rgba(255,255,255,.5);
+}
+
+.dropdown {
+    margin: 0.2em 1em;
+  }

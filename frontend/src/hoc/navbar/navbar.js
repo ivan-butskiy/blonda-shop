@@ -17,46 +17,58 @@ class Navbar extends Component {
     };
 
     render() {
-
         
         return (
             <Fragment>
-                <nav className='navbar navbar-expand-lg navbar-light'>
-                    <div className='container'>
-                        <Link className='navbar-brand mr-3' to='/'>BlondaShop</Link>
-                        <UserPreview />
-                        <button 
-                            className='navbar-toggler'
-                            type='button'
-                            data-toggle='collapse'
-                            data-target='#navbarNav'
-                            aria-controls='navbarNav'
-                            aria-expanded='false'
-                            aria-label='Toggle navigation'>
-                            <span className='navbar-toggler-icon'></span>
-                        </button>
-                        <div className='collapse navbar-collapse mx-auto' id='navbarNav'>
-                            <ul className="topBotomBordersOut navbar-nav mx-auto text-center">
-                                <li className="nav-item active">
-                                    <a className="nav-link" href="/">Мужчинам</a>
-                                </li>
-                                <li className="nav-item active">
-                                    <a className="nav-link" href="/">Женщинам</a>
-                                </li>
-                                <li className="nav-item active">
-                                    <a className="nav-link" href="/">Новинки</a>
-                                </li>
-                                <li className="nav-item active">
-                                    <a className="nav-link" href="/">Распродажа</a>
-                                </li>
-                                <li className="nav-item active">
-                                    <a className="nav-link" href="/">Контакты</a>
-                                </li>
-                            </ul>    
-                        </div>
+                <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
+
+                    <Link className='navbar-brand d-lg-none' href='/'>Navbar</Link>
+
+                    <button 
+                        className='navbar-toggler' 
+                        type='button' 
+                        data-toggle='collapse' 
+                        data-target='#navbarToggle' aria-controls='navbarToggle' 
+                        aria-expanded='false' 
+                        aria-label='Toggle navigation'>
+                        <span className='navbar-toggler-icon'></span>
+                    </button>
+
+                    <div className='collapse navbar-collapse justify-content-between' id='navbarToggle'>
+
+                        <ul className='navbar-nav'>
+                            <li className='nav-item link'>
+                                <Link className='nav-link' to='/categories/mens/'>Парням</Link>
+                            </li>
+                            <li className='nav-item link'>
+                                <Link className='nav-link' to='/categories/womans/'>Девушкам</Link>
+                            </li>
+                            <li className='nav-item link'>
+                                <Link className='nav-link' to='/'>Акции</Link>
+                            </li>
+                            <li className='nav-item link'>
+                                <Link className='nav-link' to='/'>Новинки</Link>
+                            </li>
+                        </ul>
+                            
+                        <a className='navbar-brand d-none d-lg-block' href='/'>Navbar</a>
+                            
+                        <ul className='navbar-nav'>
+                            <li className='nav-item text-center'>
+                                <i className='far fa-sign-in-alt'></i>
+                                <a className='nav-link' href='/'>Контакты</a>
+                            </li>
+                            <li className='nav-item text-center'>
+                                <i className='far fa-search'></i>
+                                <a className='nav-link' href='/'>Поиск</a>
+                            </li>
+                            <li className='nav-item text-center'>
+                                <i className='far fa-shopping-basket'></i>
+                                <a className='nav-link' href='/'>Корзина</a>
+                            </li>
+                            <UserPreview />
+                        </ul>
                     </div>
-                    
-                    
                 </nav>
                 { this.props.children }
             </Fragment>

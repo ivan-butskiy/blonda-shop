@@ -133,8 +133,15 @@
     text-align: left
 }
 
-.product-grid3 .title {
+/* .product-grid3 .title {
     font-size: 14px;
+    text-transform: capitalize;
+    margin: 0 0 7px;
+    transition: all .3s ease 0s
+} */
+
+.product-grid3 .title a {
+    font-size: 20px;
     text-transform: capitalize;
     margin: 0 0 7px;
     transition: all .3s ease 0s

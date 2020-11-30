@@ -27,7 +27,7 @@ class SubcategoryItem extends Component {
         const { image, title } = this.state;
 
         return (
-            <div className='nav-link px-4 rounded-pill' onClick={() => this.onClickHandler()} >
+            <div className='subcategory nav-link px-4 rounded-pill' onClick={() => this.onClickHandler()} >
                 <img src={ image } className='mr-2' alt={ title } />
                 { title }
             </div>

@@ -30,7 +30,7 @@ class SectionItem extends Component {
                 <div className="hover-overlay"></div>
                     <div className="hover-1-content px-5 py-4">
                         <h3 className="hover-1-title text-uppercase font-weight-bold mb-0" style={{color: 'white'}}>
-                            <Link to={`/${slug}/`}>{ title }</Link>
+                            <Link to={`/categories/${slug}/`}>{ title }</Link>
                         </h3>
                     </div>
                 </div>

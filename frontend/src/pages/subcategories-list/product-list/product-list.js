@@ -9,8 +9,9 @@ class ProductList extends Component {
     service = new BlondaShopService()
 
     state = {
-        subcategory: 'jeans',
-        products: []
+        subcategory: this.props.subcategory,
+        products: [],
+        allProducts: []
     }
 
     productList = (slug) => (
@@ -20,13 +21,28 @@ class ProductList extends Component {
                     products: products.results.map((product) => {
                         return <ProductItem product={ product } key={ product.id } />
                     })
-                })
-            })        
+                });
+            })   
     );
 
+    getAllProducts = () => (
+        this.service.getAllProducts()
+            .then((products) => {
+                this.setState({
+                    products: products.results.map((product) => {
+                        return <ProductItem product={ product } key={ product.id } />
+                    })
+                });
+            })
+    )
+
     componentDidMount() {
-        this.productList(this.state.subcategory);
-    }
+        if (this.state.subcategory) {
+            this.productList(this.state.subcategory);
+        } else {
+            this.getAllProducts();
+        };
+    };
 
     componentDidUpdate(prevProps) {
         if (this.props.subcategory !== prevProps.subcategory) {
@@ -40,7 +56,6 @@ class ProductList extends Component {
     render() {
 
         const { products } = this.state;
-
         return (
             <div className='row'>
                 { products }

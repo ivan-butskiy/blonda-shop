@@ -17,8 +17,7 @@ class Home extends Component {
             .then((sections) => {
                 this.setState({
                     sectionList: sections.results.map((section) => {
-                        // console.log(section);
-                        return <SectionItem section={section} key={section.id} />
+                        return <SectionItem section={ section } key={ section.id } />
                     })
                 });
             });

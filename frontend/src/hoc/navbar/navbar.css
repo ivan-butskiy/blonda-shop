@@ -28,3 +28,11 @@
   font-size: 18px;
   padding: 0;
 }
+
+.navbar-brand img {
+  max-height: 45px;
+}
+
+.navbar-mini img {
+  max-height: 30px;
+}

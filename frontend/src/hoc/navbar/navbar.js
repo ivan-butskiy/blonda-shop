@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import logo from '../../assets/logo.png';
 
 import UserPreview from './components/user-preview';
 
@@ -21,7 +22,9 @@ class Navbar extends Component {
             <Fragment>
                 <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
 
-                    <Link className='navbar-brand d-lg-none' to='/'>Navbar</Link>
+                    <Link className='navbar-brand d-lg-none navbar-mini' to='/'>
+                        <img src={logo} alt='bestory-logo'/>
+                    </Link>
 
                     <button 
                         className='navbar-toggler' 
@@ -50,7 +53,9 @@ class Navbar extends Component {
                             </li>
                         </ul>
                             
-                        <a className='navbar-brand d-none d-lg-block' href='/'>Navbar</a>
+                        <Link className='navbar-brand d-none d-lg-block' to='/'>
+                            <img src={logo} alt='bestory-logo'/>
+                        </Link>
                             
                         <ul className='navbar-nav'>
                             <li className='nav-item text-center'>

@@ -27,8 +27,31 @@ class CategoriesList extends Component {
             })
     }
 
+    updateCategoriesList = () => {
+        this.service.getCategoriesList(this.props.section)
+            .then((categories) => {
+                this.setState({
+                    categoryList: categories.map((category) => {
+                        return <CategoryItem
+                            section={ this.state.section }
+                            category={ category }
+                            key={ category.id }/>
+                    })
+                })
+            })
+    }
+
     componentDidMount() {
         this.getCategoriesList();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.state.section !== this.props.section) {
+            this.setState({
+                section: this.props.section
+            });
+            this.updateCategoriesList();
+        }
     }
 
     render() {

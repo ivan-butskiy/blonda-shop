@@ -7,8 +7,23 @@ import {
 export const addProductToBasket = (slug, title, headerImage, price, size, color) => dispatch => {
     if (localStorage.getItem('basket-list')) {
         const basketList = JSON.parse(localStorage.getItem('basket-list'));
+        if (basketList.findIndex(item => item.slug === slug) !== -1) {
 
-        const basketObject = {
+            const index = basketList.findIndex(item => item.slug === slug);
+            const basketObject = {
+                slug: slug, 
+                title: title, 
+                headerImage: headerImage,
+                price: price,
+                size: size,
+                color: color
+            };
+            basketList[index] = basketObject
+            localStorage.setItem('basket-list', JSON.stringify(basketList));
+            dispatch({type: ALREADY_IN_BASKET});
+
+        } else {
+            const basketObject = {
             slug: slug, 
             title: title, 
             headerImage: headerImage,
@@ -16,11 +31,11 @@ export const addProductToBasket = (slug, title, headerImage, price, size, color)
             size: size,
             color: color
         };
-
         basketList.push(basketObject);
         localStorage.setItem('basket-list', JSON.stringify(basketList));
 
         dispatch({type: ADD_TO_BASKET});
+        }
 
     } else {
         const basketList = []

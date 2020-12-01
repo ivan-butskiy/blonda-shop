@@ -1,4 +1,8 @@
-import { ADD_TO_BASKET, DELETE_FROM_BASKET } from '../actions/basket-types';
+import {
+    ADD_TO_BASKET,
+    DELETE_FROM_BASKET,
+    ALREADY_IN_BASKET
+} from '../actions/basket-types';
 
 const getCount = () => {
     if (localStorage.getItem('basket-list')) {
@@ -26,6 +30,8 @@ function basketReducer(state = initialState, action) {
         case ADD_TO_BASKET:
             return {...state, count: getCount(), basketList: getBasketList()};
         case DELETE_FROM_BASKET:
+            return {...state, count: getCount(), basketList: getBasketList()};
+        case ALREADY_IN_BASKET:
             return {...state, count: getCount(), basketList: getBasketList()};
         default:
             return {...state};

@@ -256,5 +256,5 @@ class ProductDetail extends Component {
 
 export default connect(null, {addProductToBasket})(ProductDetail);
 
-// TODO добавление товара в корзину
+// TODO убрать возможность повторного добавления товара в корзину 
 // TODO добавить комментарии

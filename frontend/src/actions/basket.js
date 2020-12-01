@@ -1,8 +1,13 @@
-import { ADD_TO_BASKET, DELETE_FROM_BASKET } from './basket-types';
+import {
+    ADD_TO_BASKET,
+    DELETE_FROM_BASKET,
+    ALREADY_IN_BASKET
+} from './basket-types';
 
 export const addProductToBasket = (slug, title, headerImage, price, size, color) => dispatch => {
     if (localStorage.getItem('basket-list')) {
         const basketList = JSON.parse(localStorage.getItem('basket-list'));
+
         const basketObject = {
             slug: slug, 
             title: title, 
@@ -34,7 +39,7 @@ export const addProductToBasket = (slug, title, headerImage, price, size, color)
     };
 };
 
-export const deleteFromBasket = (slug) => async dispatch => {
+export const deleteFromBasket = (slug) => dispatch => {
     const basketList = JSON.parse(localStorage.getItem('basket-list'));
     const index = basketList.findIndex(item => item.slug === slug);
     basketList.splice(index, 1);

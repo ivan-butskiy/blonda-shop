@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { addProductToBasket } from '../../../actions/basket';
 import './product-item.css';
 
 class ProductItem extends Component {
@@ -14,6 +16,18 @@ class ProductItem extends Component {
         newProduct: this.props.product.new_product
     }
 
+    submitToBasket = (e) => {
+        e.preventDefault();
+        this.props.addProductToBasket(
+            this.state.slug, 
+            this.state.title,
+            this.state.header_image,
+            this.state.price,
+            '',
+            '');
+        // this.makeActivePopup();
+    };
+
     render() {
 
         const { slug, title, header_image, image_1, price, oldPrice, newProduct } = this.state;
@@ -27,15 +41,30 @@ class ProductItem extends Component {
                             <img className='pic-2' src={image_1 ? image_1 : header_image } alt={ title } />
                         </Link>
                         <ul className='social'>
-                            <li><a href='/'><i className='fa fa-shopping-bag'></i></a></li>
-                            <li><a href='/'><i className='fa fa-shopping-cart'></i></a></li>
+                            <li>
+                                <button 
+                                    type='submit'
+                                    onClick={(e) => this.submitToBasket(e)} 
+                                    className='add-to-cart-button'>
+                                    <i className='fas fa-star'></i>
+                                </button>
+                            </li>
+                            <li>
+                                <button 
+                                    type='submit'
+                                    onClick={(e) => this.submitToBasket(e)} 
+                                    className='add-to-cart-button'>
+                                    <i className='fa fa-shopping-cart'></i>
+                                </button>
+                            </li>
+                            
                         </ul>
                         { newProduct ? <span className='product-new-label'>New</span> : null }
                     </div>
                     <div className='product-content'>
                         <h3 className='title'><a href='/'>{ title }</a></h3>
                         <div className='price'>
-                            { price } грн.
+                            { oldPrice ? <div className='price true-old'>{price} грн.</div> : <div className='price'>{price} грн.</div> }
                             <span className='ml-1'>{ oldPrice ? oldPrice : null}</span>
                         </div>
                     </div>
@@ -46,4 +75,4 @@ class ProductItem extends Component {
 
 };
 
-export default ProductItem;
+export default connect(null, { addProductToBasket })(ProductItem);

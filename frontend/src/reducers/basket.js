@@ -8,17 +8,25 @@ const getCount = () => {
     }
 }
 
+const getBasketList = () => {
+    if (localStorage.getItem('basket-list')) {
+        return JSON.parse(localStorage.getItem('basket-list'));
+    } else {
+        return []
+    }
+}
+
 const initialState = {
-    basketList: localStorage.getItem('basket-list'),
+    basketList: getBasketList(),
     count: getCount()
 }
 
 function basketReducer(state = initialState, action) {
     switch (action.type) {
         case ADD_TO_BASKET:
-            return {...state, count: getCount()};
+            return {...state, count: getCount(), basketList: getBasketList()};
         case DELETE_FROM_BASKET:
-            return {...state, count: getCount()};
+            return {...state, count: getCount(), basketList: getBasketList()};
         default:
             return {...state};
     };

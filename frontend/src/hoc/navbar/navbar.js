@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import UserPreview from './components/user-preview';
@@ -15,7 +15,6 @@ class Navbar extends Component {
         props.checkAuthenticated();
         props.load_user();
     };
-
     
     render() {
         return (
@@ -37,16 +36,16 @@ class Navbar extends Component {
                     <div className='collapse navbar-collapse justify-content-between' id='navbarToggle'>
 
                         <ul className='navbar-nav'>
-                            <li className='nav-item link'>
+                            <li className='nav-item link text-center'>
                                 <Link className='nav-link' to='/categories/mens/'>Парням</Link>
                             </li>
-                            <li className='nav-item link'>
+                            <li className='nav-item link text-center'>
                                 <Link className='nav-link' to='/categories/womans/'>Девушкам</Link>
                             </li>
-                            <li className='nav-item link'>
+                            <li className='nav-item link text-center'>
                                 <Link className='nav-link' to='/'>Акции</Link>
                             </li>
-                            <li className='nav-item link'>
+                            <li className='nav-item link text-center'>
                                 <Link className='nav-link' to='/'>Новинки</Link>
                             </li>
                         </ul>
@@ -63,8 +62,8 @@ class Navbar extends Component {
                                 <a className='nav-link' href='/'>Поиск</a>
                             </li>
                             <li className='nav-item text-center'>
-                                <i className='far fa-shopping-basket'></i>
-                                <Link className='nav-link' to='/cart/'>Корзина <span className='badge badge-danger'>{ this.props.count }</span></Link>
+                                <i className='fa fa-shopping-cart'></i>
+                                <Link className='nav-link' to='/cart/'>Корзина { this.props.count ? <span className='badge badge-danger'>{ this.props.count }</span> : null }</Link>
                             </li>
                             <UserPreview />
                         </ul>

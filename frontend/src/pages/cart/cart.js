@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { deleteFromBasket } from '../../actions/basket';
 
 import CartItem from './cart-item';
-
-import BlondaShopService from '../../service/blonda-shop-service';
 
 import './cart.css';
 
@@ -12,18 +11,16 @@ class Cart extends Component {
     constructor(props){
         super(props);
         this.state = {
-            counter: 0,
-            cartItems: JSON.parse(this.props.basketList),
+            cartItems: this.props.basketList,
             cartList: null,
             sum: null
         };
     };
 
-    service = new BlondaShopService();
-
     getCartList() {
         this.setState({
-            cartList: this.state.cartItems.map((item) => {
+            cartList: this.props.basketList.map((item) => {
+            // cartList: this.state.cartItems.map((item) => {
                 return <CartItem 
                     key={item.slug}
                     slug={item.slug}
@@ -32,42 +29,40 @@ class Cart extends Component {
                     headerImage={item.headerImage}
                     size={item.size}
                     color={item.color}
+                    delete={ () => this.deleteCartItem(item.slug) }
+                    // delete={ () => this.props() }
                     />
             })
         });
     };
 
+    deleteCartItem = (slug) => {
+        this.props.deleteFromBasket(slug);
+        console.log('Deleted', slug)
+        this.getCartList();
+        this.setState({cartItems: this.props.basketList});
+        this.getTotalSum();
+        
+    }
+
     getTotalSum() {
         let count = 0;
-        for (let item of this.state.cartItems) {
+        for (let item of this.props.basketList) {
             count += parseFloat(item.price);
         };
         this.setState({sum: count.toFixed(2)});
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.count !== prevProps.count) {
-            console.log('Количество из props при update', this.props.count);
-            console.log('BasketList при update', JSON.parse(this.props.basketList));
-            this.setState({cartItems: JSON.parse(this.props.basketList)})
-            this.setState({
-                cartList: this.state.cartItems.map((item) => {
-                    return <CartItem 
-                        key={item.slug}
-                        slug={item.slug}
-                        title={item.title}
-                        price={item.price}
-                        headerImage={item.headerImage}
-                        size={item.size}
-                        color={item.color}
-                    />
-                })
-            })
-            console.log(this.state.cartItems.length)
-        };
-    };
+        if (this.props.basketList !== prevProps.basketList) {
+            this.setState({cartItems: this.props.basketList})
+            this.getCartList();
+            this.getTotalSum();
+        }
+    }
 
     componentDidMount() {
+        this.setState({ cartItems: this.props.basketList })
         this.getCartList();
         this.getTotalSum();
     };
@@ -117,7 +112,7 @@ class Cart extends Component {
                 </div>
                 
                 <p className='count'><strong>Общая сумма заказа:</strong> { sum } грн.</p>
-                <p>Количество товаров в корзине: {this.props.count}</p>
+                <p className='count'><strong>Количество товаров в корзине:</strong> {this.props.count}</p>
                 </div>
             </div>
         );
@@ -130,4 +125,4 @@ const mapStateToProps = store => ({
     count: store.basketReducer.count
 })
 
-export default  connect(mapStateToProps, null)(Cart);
+export default  connect(mapStateToProps, { deleteFromBasket })(Cart);

@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-
-import { deleteFromBasket } from '../../../actions/basket';
 
 import './cart-item.css';
 
@@ -59,7 +56,7 @@ class CartItem extends Component {
                 <td className='border-0 align-middle'>
                 <i 
                     className='fa fa-trash basket-icon' 
-                    onClick={ () => this.deleteItemFromBasket(slug) }>
+                    onClick={ () => this.props.delete(slug) }>
                 </i>
 
                 </td>
@@ -68,4 +65,4 @@ class CartItem extends Component {
     }
 }
 
-export default connect(null, { deleteFromBasket })(CartItem);
+export default (CartItem);

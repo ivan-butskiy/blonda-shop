@@ -68,6 +68,13 @@ class ProductDetailView(RetrieveAPIView):
     serializer_class = ProductDetailSerializer
 
 
+class ProductShortView(RetrieveAPIView):
+    queryset = Product.objects.all()
+    lookup_field = 'slug'
+    permission_classes = [AllowAny]
+    serializer_class = ProductPreviewSerializer
+
+
 class AllProductsPreviewList(ListAPIView):
     queryset = Product.objects.all()
     permission_classes = [AllowAny]

@@ -18,7 +18,6 @@ const Login = ({ login, isAuthenticated }) => {
 
     const onSubmit = e => {
         e.preventDefault();
-
         login(email, password);
     }
 

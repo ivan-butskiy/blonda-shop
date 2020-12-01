@@ -14,7 +14,7 @@ import {
     ACTIVATION_SUCCESS,
     ACTIVATION_FAIL,
     LOGOUT
-} from '../actions/types';
+} from '../actions/auth-types';
 
 const initialState = {
     access: localStorage.getItem('access'),

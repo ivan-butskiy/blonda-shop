@@ -16,7 +16,7 @@ import {
     // ACTIVATION_SUCCESS,
     // ACTIVATION_FAIL,
     LOGOUT
-} from './types';
+} from './auth-types';
 
 // const API_BASE = process.env.REACT_APP_API_URL;
 const API_BASE = 'http://localhost:8000';
@@ -122,3 +122,5 @@ export const signup = (email, first_name, last_name, password, re_password) => a
         });
     }
 };
+
+// TODO rewrite the _apiBase

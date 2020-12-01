@@ -1,0 +1,13 @@
+.basket-icon {
+    color: #ff9900;
+}
+.basket-icon:hover {
+    cursor: pointer;
+}
+
+.delete-from-basket {
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 50%;
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}

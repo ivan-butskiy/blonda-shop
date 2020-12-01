@@ -16,13 +16,13 @@ class Navbar extends Component {
         props.load_user();
     };
 
+    
     render() {
-        
         return (
             <Fragment>
                 <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
 
-                    <Link className='navbar-brand d-lg-none' href='/'>Navbar</Link>
+                    <Link className='navbar-brand d-lg-none' to='/'>Navbar</Link>
 
                     <button 
                         className='navbar-toggler' 
@@ -64,7 +64,7 @@ class Navbar extends Component {
                             </li>
                             <li className='nav-item text-center'>
                                 <i className='far fa-shopping-basket'></i>
-                                <a className='nav-link' href='/'>Корзина</a>
+                                <Link className='nav-link' to='/cart/'>Корзина <span className='badge badge-danger'>{ this.props.count }</span></Link>
                             </li>
                             <UserPreview />
                         </ul>
@@ -78,7 +78,8 @@ class Navbar extends Component {
 
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.authReducer.isAuthenticated
+    isAuthenticated: state.authReducer.isAuthenticated,
+    count: state.basketReducer.count
 })
 
 const mapDispatchToProps = {

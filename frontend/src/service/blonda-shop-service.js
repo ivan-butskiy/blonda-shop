@@ -45,4 +45,9 @@ export default class BlondaShopService {
         return response;
     };
 
+    getProductShortView = async (productSlug) => {
+        const response = await this.getResource(`api/shop/products/short/${productSlug}/`);
+        return response;
+    };
+
 };

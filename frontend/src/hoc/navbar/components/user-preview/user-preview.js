@@ -17,8 +17,8 @@ const UserPreview = ({ isAuthenticated, logout  }) => {
 
     const userInfo = () => (
         <div className='row dropdown text-center'>
-            <i class='col-lg-12 far fa-user-circle'></i>
-            <Link className='col-lg-12 btn dropdown-toggle' href='/' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+            <i className='col-lg-12 far fa-user-circle'></i>
+            <Link className='col-lg-12 btn dropdown-toggle' to='/' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
             Аккаунт
             </Link>
             <div className='dropdown-menu' aria-labelledby='dropdownMenuLink'>

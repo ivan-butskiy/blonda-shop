@@ -1,0 +1,38 @@
+.card {
+    max-width: 900px;
+    border-radius: 5px;
+    background-color: #fff;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-top: 30px;
+    margin: 30px auto auto auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: Roboto;
+    color: #464646;
+}
+
+.card .row .far {
+    font-size: 22px;
+    color: #ff9900;
+}
+
+.fa-user-circle {
+    font-size: 20px;
+}
+
+.blue-text {
+    color: #464646;
+}
+
+.content {
+    font-size: 16px;
+    color: #464646;
+}
+
+.profile-pic {
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    margin-right: 30px
+}

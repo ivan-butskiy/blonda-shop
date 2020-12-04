@@ -32,7 +32,7 @@ class Home extends Component {
         const sectionList = this.state.sectionList;
         return (
             <Fragment>
-                <div className='container'>
+                <div className='container mt-5'>
                     <div className='row'>
                         { sectionList }
                     </div>

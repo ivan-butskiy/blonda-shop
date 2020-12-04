@@ -9,8 +9,23 @@ from .models import (
     FeedBack,
     Product,
     Size,
-    Color
+    Color,
+    Delivery,
+    OrderItem,
+    Order
     )
+
+
+class FeedBackItemInline(admin.TabularInline):
+    model = FeedBack
+    # raw_id_fields = ['author', 'adding_date']
+
+
+class FeedBackModelAdmin(admin.ModelAdmin):
+    fields = ['author', 'product', 'header', 'text', 'is_published']
+    list_display = ['header', 'author', 'adding_date', 'is_published']
+    list_editable = ['is_published']
+    sortable_by = ['-adding_date']
 
 
 class ProductAdminForm(forms.ModelForm):
@@ -34,7 +49,6 @@ class ProductModelAdmin(admin.ModelAdmin):
         'price',
         'old_price',
         'new_product',
-        'feedbacks',
         'header_image',
         'image_1',
         'image_2',
@@ -53,6 +67,7 @@ class ProductModelAdmin(admin.ModelAdmin):
     sortable_by = ['update_date', 'adding_date', 'title']
     search_fields = ['title', 'description']
     prepopulated_fields = {'slug': ('title',), }
+    inlines = [FeedBackItemInline]
     
 
     def is_special_offer(self, obj):
@@ -64,11 +79,42 @@ class ProductModelAdmin(admin.ModelAdmin):
 
 
 
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+
+
+class OrderAdmin(admin.ModelAdmin):
+    fields = [
+        'consumer',
+        'last_name',
+        'patronym',
+        'first_name',
+        'phone',
+        'email',
+        'region',
+        'district',
+        'city',
+        'delivery',
+        'is_done',
+        ]
+
+    list_display = ['first_name', 'phone', 'delivery', 'adding_date', 'is_done']
+    list_display_links = ['first_name']
+    list_editable = ['is_done']
+    inlines = [OrderItemInline]
+    ordering = ['-adding_date']
+    sortable_by = ['is_done']
+    search_fields = ['first_name', 'last_name', 'phone', 'email']
+
+
 admin.site.register(Color)
 admin.site.register(Size)
 admin.site.register(Section)
 admin.site.register(Category)
 admin.site.register(Subcategory)
 admin.site.register(Brand)
-admin.site.register(FeedBack)
+admin.site.register(FeedBack, FeedBackModelAdmin)
 admin.site.register(Product, ProductModelAdmin)
+admin.site.register(Delivery)
+admin.site.register(OrderItem)
+admin.site.register(Order, OrderAdmin)

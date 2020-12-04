@@ -5,6 +5,58 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
+class Delivery(models.Model):
+    title = models.CharField(max_length=50, verbose_name='название')
+    logo = models.ImageField(upload_to='images/%Y-%m-%d/', verbose_name='логотип')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'служба доставки'
+        verbose_name_plural = 'службы доставки'
+
+
+class OrderItem(models.Model):
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, verbose_name='товар')
+    size = models.CharField(max_length=30, verbose_name='размер')
+    color = models.CharField(max_length=30, verbose_name='цвет')
+    order = models.ForeignKey('Order', on_delete=models.CASCADE, verbose_name='заказ')
+
+    def __str__(self):
+        return self.product
+
+    class Meta:
+        verbose_name = 'товар'
+        verbose_name_plural = 'товары'
+
+
+class Order(models.Model):
+    consumer = models.ForeignKey(User, blank=True, on_delete=models.CASCADE, verbose_name='клиент')
+    last_name = models.CharField(max_length=30, verbose_name='фамилия')
+    first_name = models.CharField(max_length=30, verbose_name='имя')
+    patronym = models.CharField(max_length=30, verbose_name='отчество')
+
+    phone = models.CharField(max_length=30, verbose_name='телефон')
+    email = models.CharField(max_length=50, verbose_name='e-mail')
+    
+    region = models.CharField(max_length=50, verbose_name='область')
+    district = models.CharField(max_length=50, verbose_name='район')
+    city = models.CharField(max_length=50, verbose_name='город')
+
+    delivery = models.ForeignKey(Delivery, null=True, on_delete=models.SET_NULL, verbose_name='доставка')
+
+    adding_date = models.DateTimeField(auto_now_add=True, verbose_name='дата оформления')
+    is_done = models.BooleanField(default=False, verbose_name='выполнен')
+
+    def __str__(self):
+        return self.id
+
+    class Meta:
+        verbose_name = 'заказ'
+        verbose_name_plural = 'заказы'
+        ordering = ['-adding_date']
+
 class Section(models.Model):
     slug = models.SlugField(verbose_name='слаг')
     title = models.CharField(max_length=30, help_text='мужчинам/женщинам', verbose_name='для кого')
@@ -64,9 +116,12 @@ class Brand(models.Model):
 
 class FeedBack(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='автор')
+    product = models.ForeignKey('Product', null=True, on_delete=models.CASCADE, verbose_name='товар')
+    header = models.CharField(max_length=100, null=True, verbose_name='заголовок')
     text = models.TextField(max_length=500, verbose_name='текст отзыва')
     adding_date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name='дата добавления')
     update_date = models.DateTimeField(auto_now=True, blank=True, verbose_name='дата обновления')
+    is_published = models.BooleanField(default=False, verbose_name='опубликован')
 
     class Meta:
         verbose_name = 'отзыв'
@@ -117,7 +172,7 @@ class Product(models.Model):
 
     adding_date = models.DateTimeField(auto_now_add=True, blank=True, verbose_name='дата добавления')
     update_date = models.DateTimeField(auto_now=True, blank=True, verbose_name='дата обновления')
-    feedbacks = models.ManyToManyField(FeedBack, blank=True, verbose_name='отзывы')
+    # feedbacks = models.ManyToManyField(FeedBack, blank=True, verbose_name='отзывы')
 
     header_image = models.ImageField(upload_to='images/%Y-%m-%d/', verbose_name='главная картинка')
     image_1 = models.ImageField(blank=True, upload_to='images/%Y-%m-%d/', verbose_name='картинка 1')

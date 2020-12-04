@@ -40,7 +40,7 @@ class SubcategoriesList extends Component {
     render() {
         const subcategoriesList = this.state.subcategoriesList;
         return (
-                <div className='row'>
+                <div className='row mt-5'>
                     <div className='col-lg-3 mb-4 mb-lg-0'>
                         <nav className='nav flex-column shadow-sm p-3'>
                             { subcategoriesList }

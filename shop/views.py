@@ -4,17 +4,42 @@ from rest_framework.views import APIView
 from rest_framework.generics import RetrieveAPIView, ListAPIView, RetrieveAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.settings import api_settings
-
 from .serializers import (
     SectionSerializer,
     CategoryListSerializer,
     SubcategorySerializer,
     ProductPreviewSerializer,
     ProductDetailSerializer,
-    SubcategoryPreviewSerializer)
+    SubcategoryPreviewSerializer,
+    FeedBackSerializer
+)
 
-from .models import Section, Category, Subcategory, Product
+from .models import Section, Category, Subcategory, Product, FeedBack
 
+
+class FeedBackView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, product_id):
+        feedbacks = FeedBack.objects.filter(product_id=product_id, is_published=True)
+        serializer = FeedBackSerializer(feedbacks, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, product_id):
+        try:
+            product_id = request.data['id']
+            feedback_header = request.data['header']
+            feedback_text = request.data['text']
+            
+            product = Product.objects.get(id=int(product_id))
+            user = request.user
+
+            FeedBack.objects.create(author=user, product=product, header=feedback_header, text=feedback_text)
+
+            return Response({'success': 'feedback was created'})
+        except:
+            return Response({'error': 'feedback not been created'})
+        # TODO добавить уведомление на email Карины об отправке нового отзыва
 
 class SectionListView(ListAPIView):
     queryset = Section.objects.all()
@@ -83,17 +108,6 @@ class AllProductsPreviewList(ListAPIView):
     def get_queryset(self):
         products = Product.objects.filter(is_published=True)
         return products
-
-
-# class SubcategoriesDetailView(RetrieveAPIView):
-#     query_set = Subcategory.objects.all()
-#     lookup_field = 'slug'
-#     permission_classes = [AllowAny]
-#     serializer_class = SubcategoryPreviewSerializer
-
-#     def get_queryset(self):
-#         subcategory = Subcategory.objects.get(slug=self.kwargs['slug_subcategory'])
-#         return subcategory
 
 
 class SubcategoriesDetailView(APIView):

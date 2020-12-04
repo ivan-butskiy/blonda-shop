@@ -7,13 +7,15 @@ from .views import (
     ProductDetailView,
     AllProductsPreviewList,
     SubcategoriesDetailView,
-    ProductShortView
-    )
+    ProductShortView,
+    FeedBackView
+)
 
 
 urlpatterns = [
     path('', SectionListView.as_view()),
     path('products/all/', AllProductsPreviewList.as_view()),
+    path('products/feedbacks/<int:product_id>/', FeedBackView.as_view()),
     path('products/<str:slug>/', ProductListView.as_view()),
     path('products/detail/<str:slug>/', ProductDetailView.as_view()),
     path('products/short/<str:slug>/', ProductShortView.as_view()),

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import './popup-message.css';
+import './popup-message-feedback.css';
 
-export default class PopupMessage extends Component {
+export default class PopupMessageFeedback extends Component {
 
     state = {
         active: this.props.active
@@ -18,13 +18,10 @@ export default class PopupMessage extends Component {
 
     render() {
 
-
         return (
             <div className='popup-base ' aria-live='polite' aria-atomic='true'>
                 <div className={ this.state.active ? 'toast show' : 'toast'}>
                     <div className='toast-header'>
-                        {/* <i className='far fa-file-alt mr-2'></i>
-                        <strong className='mr-auto'>Новости от Блонды</strong> */}
 
                         <button 
                             type='button' 
@@ -35,13 +32,14 @@ export default class PopupMessage extends Component {
                             >
                             <span aria-hidden='true'>&times;</span>
                         </button>
+
                     </div>
                     <div className='toast-body text-center'>
-                    <i className='far fa-shopping-basket'></i>
-                    <p>Товар успешно добавлен в корзину!</p>
+                    <i className='far fa-comment-dots'></i>
+                    <p>Отзыв отправлен. Он будет опубликован после проверки модератором.</p>
                     </div>
                 </div>
             </div>
-        );
-    };
-};
+        )
+    }
+}

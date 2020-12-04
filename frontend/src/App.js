@@ -3,13 +3,15 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Home from './pages/home';
-import Navbar from './hoc/navbar';
+// import Navbar from './hoc/navbar';
+import Hoc from './hoc/hoc';
 import Login from './pages/login';
 import SignUp from './pages/signup';
 import CategoriesList from './pages/categories/categories';
 import SubcategoriesList from './pages/subcategories-list/subcategories-list';
 import ProductDetail from './pages/product-detail/product-detail';
 import Cart from './pages/cart';
+import Order from './pages/order';
 
 import store from './store';
 
@@ -18,12 +20,13 @@ import './App.css';
 const App = () => (
   <Provider store={ store }>
     <Router>
-      <Navbar>
+      <Hoc>
         <Switch>
           <Route path='/' exact component={ Home } />
           <Route path='/login/' component={ Login } exact />
           <Route path='/signup/' component={ SignUp } />
           <Route path='/cart/' component={ Cart } />
+          <Route path='/order/' component={ Order } />
           <Route path='/products/detail/:slug/'
             render={({ match }) => {
               return <ProductDetail slug={ match.params.slug } />
@@ -45,7 +48,7 @@ const App = () => (
               }
             } exact />
         </Switch>
-      </Navbar>
+      </Hoc>
     </Router>
   </Provider>
 )

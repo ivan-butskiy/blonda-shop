@@ -6,6 +6,8 @@ import BlondaShopService from '../../service/blonda-shop-service';
 import WentToSubcategory from './went-to-subcategory';
 import PopupMessage from './popup-message';
 import { addProductToBasket } from '../../actions/basket';
+import FeedBacks from './feedbacks';
+import FeedBackForm from './feedback-form/';
 
 import './product-detail.css';
 
@@ -14,6 +16,7 @@ class ProductDetail extends Component {
     service = new BlondaShopService();
 
     state = {
+        id: '',
         slug: '',
         colors: [],
         sizes: [],
@@ -83,6 +86,7 @@ class ProductDetail extends Component {
         this.service.getProductDetail(this.props.slug)
             .then((product) => {
                 this.setState({
+                    id: product.id,
                     slug: product.slug,
                     colors: product.color,
                     sizes: product.sizes,
@@ -110,8 +114,7 @@ class ProductDetail extends Component {
     };
 
     render() {
-
-        const { colors, sizes, brandTitle, brandCountry, brandImage, title, description, price, oldPrice,
+        const { id, colors, sizes, brandTitle, brandCountry, brandImage, title, description, price, oldPrice,
             newProduct, headerImage, image_1, image_2, image_3,
             image_4, image_5, image_6 } = this.state;
 
@@ -245,16 +248,17 @@ class ProductDetail extends Component {
                             </form>
                         </div>
                     </div>
-                <PopupMessage active={ this.state.modalActive } activeHandler={ this.handlerPopupActive } />
+                <FeedBacks id={ id } />
+                { this.props.isAuthenticated ? <FeedBackForm productId={ id } /> : null }
                 </div>
+                <PopupMessage active={ this.state.modalActive } activeHandler={ this.handlerPopupActive } />
             </React.Fragment>
         )
     }
 };
 
+const mapDispatchToProps = store => ({
+    isAuthenticated: store.authReducer.isAuthenticated
+})
 
-
-export default connect(null, {addProductToBasket})(ProductDetail);
-
-// TODO убрать возможность повторного добавления товара в корзину 
-// TODO добавить комментарии
+export default connect(mapDispatchToProps, {addProductToBasket})(ProductDetail);

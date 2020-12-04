@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.contrib.auth import get_user_model
 from .models import (
     Section,
     Category,
@@ -6,8 +7,27 @@ from .models import (
     Product,
     Brand,
     Size,
-    Color
-    )
+    Color,
+    FeedBack
+)
+
+
+User = get_user_model()
+
+
+class UserFullNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name']
+
+
+class FeedBackSerializer(serializers.ModelSerializer):
+
+    author = UserFullNameSerializer(read_only=True)
+
+    class Meta:
+        model = FeedBack
+        fields = '__all__'
 
 
 class ColorSerializer(serializers.ModelSerializer):

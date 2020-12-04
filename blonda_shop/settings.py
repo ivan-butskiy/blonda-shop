@@ -104,7 +104,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-
 AUTH_USER_MODEL = 'accounts.UserAccount'
 
 
@@ -117,7 +116,9 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication'
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 25
+    'PAGE_SIZE': 25,
+    'DATETIME_FORMAT': '%d.%m.%Y'
+    # 'DATETIME_FORMAT': '%d.%m.%Y %H:%M'
 }
 
 SIMPLE_JWT = {

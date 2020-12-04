@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export default class BlondaShopService {
 
     _apiBase = 'http://localhost:8000/';
@@ -49,5 +51,25 @@ export default class BlondaShopService {
         const response = await this.getResource(`api/shop/products/short/${productSlug}/`);
         return response;
     };
+
+    getFeedbacksList = async (productId) => {
+        const response = await this.getResource(`api/shop/products/feedbacks/${productId}/`);
+        return response;
+    };
+
+    submitFeedback = async (id, header, text) => {
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `JWT ${localStorage.getItem('access')}`
+            },
+        };
+
+        const body = JSON.stringify({ id, header, text })
+
+        await axios.post(`${this._apiBase}api/shop/products/feedbacks/${id}/`, body, config)
+    
+    }
 
 };

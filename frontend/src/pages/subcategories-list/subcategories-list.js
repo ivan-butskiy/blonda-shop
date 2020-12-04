@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import SubcategoryItem from './subcategory-item/subcategory-item';
 import ProductList from './product-list/product-list';
+import FilterPanel from './filter-panel';
 import './subcategories-list.css';
 
 import BlondaShopService from '../../service/blonda-shop-service';
@@ -50,6 +51,7 @@ class SubcategoriesList extends Component {
                     <div className='col-lg-9 mb-5'>
                         <div className='p-5 bg-white d-flex align-items-center shadow-sm h-100'>
                             <div className='row demo-content'>
+                                { this.props.subcategory ? <FilterPanel /> : null }
                                 <ProductList subcategory={ this.state.subcategory } />
                             </div>
                         </div>

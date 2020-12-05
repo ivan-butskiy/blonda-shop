@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addProductToBasket } from '../../../actions/basket';
+import { addProductToBasket } from '../../actions/basket';
 import './product-item.css';
 
 class ProductItem extends Component {
@@ -25,7 +25,6 @@ class ProductItem extends Component {
             this.state.price,
             '',
             '');
-        // this.makeActivePopup();
     };
 
     render() {

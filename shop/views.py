@@ -20,6 +20,50 @@ from .serializers import (
 from .models import Section, Category, Subcategory, Product, FeedBack, Brand, Color, Size
 
 
+class NewProductsView(ListAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = ProductPreviewSerializer
+
+    def get_queryset(self):
+        new_products = Product.objects.filter(new_product=True)
+        return new_products[:9] 
+
+
+class FilteredProductsView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request, subcategory_slug):
+        subcategory = Subcategory.objects.get(slug=subcategory_slug)
+        queryset = Product.objects.filter(subcategory=subcategory.pk)
+
+        if request.data['size']:
+            queryset = queryset.filter(sizes__size=request.data['size'])
+        
+        if request.data['color']:
+            queryset = queryset.filter(color__color=request.data['color'])
+        if request.data['brand']:
+            queryset = queryset.filter(brand__title=request.data['brand'])
+        
+        if request.data['min_price']:
+            queryset = queryset.filter(price__gte=int(request.data['min_price']))
+        
+        if request.data['max_price']:
+            queryset = queryset.filter(price__lte=int(request.data['max_price']))
+        
+        if request.data['max_price']:
+            queryset = queryset.filter(price__lte=int(request.data['max_price']))
+        
+        if request.data['sell']:
+            queryset = queryset.filter(old_price__gt=0)
+        
+        if request.data['new']:
+            queryset = queryset.filter(new_product=True)
+        
+        serializer = ProductPreviewSerializer(queryset, many=True)
+
+        return Response(serializer.data)
+
+
 class FilterInfo(APIView):
     permission_classes = [AllowAny]
 
@@ -63,14 +107,8 @@ class FeedBackView(APIView):
             return Response({'error': 'feedback not been created'})
         # TODO добавить уведомление на email Карины об отправке нового отзыва
 
+
 class SectionListView(ListAPIView):
-    queryset = Section.objects.all()
-    permission_classes = [AllowAny]
-    serializer_class = SectionSerializer
-
-
-class SectionDetailView(RetrieveAPIView):
-    lookup_field = 'slug'
     queryset = Section.objects.all()
     permission_classes = [AllowAny]
     serializer_class = SectionSerializer
@@ -81,7 +119,7 @@ class CategoriesListView(APIView):
 
     def get(self, request, slug):
         section = Section.objects.get(slug=slug)
-        categories = Category.objects.filter(section_id=section.id)
+        categories = Category.objects.filter(section_id=section.id, is_published=True)
         serializer = CategoryListSerializer(categories, many=True)
         return Response(serializer.data)
 
@@ -93,7 +131,7 @@ class SubcategoriesListView(ListAPIView):
 
     def get_queryset(self):
         category = Category.objects.get(slug=self.kwargs['slug_category'])
-        subcategories = Subcategory.objects.filter(category_id=category.id, product__gt=0).distinct()
+        subcategories = Subcategory.objects.filter(category_id=category.id, product__gt=0, is_published=True).distinct()
         return subcategories
 
 

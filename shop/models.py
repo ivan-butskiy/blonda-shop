@@ -57,6 +57,7 @@ class Order(models.Model):
         verbose_name_plural = 'заказы'
         ordering = ['-adding_date']
 
+
 class Section(models.Model):
     slug = models.SlugField(verbose_name='слаг')
     title = models.CharField(max_length=30, help_text='мужчинам/женщинам', verbose_name='для кого')
@@ -76,6 +77,7 @@ class Category(models.Model):
     section = models.ForeignKey(Section, on_delete=models.CASCADE, help_text='раздел', verbose_name='раздел')
     title = models.CharField(max_length=30, help_text='верхняя одежда/обувь/нижнее белье', verbose_name='категория')
     category_image = models.ImageField(upload_to='images/%Y-%m-%d/', verbose_name='картинка категории')
+    is_published = models.BooleanField(blank=True, default=True, verbose_name='опубликовано')
 
     class Meta:
         verbose_name = 'категория'
@@ -90,6 +92,7 @@ class Subcategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, help_text='категория', verbose_name='категория')
     title = models.CharField(max_length=30, help_text='кофты/футболки/носки', verbose_name='подкатегория')
     subcategory_image = models.ImageField(upload_to='images/%Y-%m-%d/', verbose_name='картинка подкатегории')
+    is_published = models.BooleanField(blank=True, default=True, verbose_name='опубликовано')
 
 
     class Meta:
@@ -182,7 +185,7 @@ class Product(models.Model):
     image_5 = models.ImageField(blank=True, upload_to='images/%Y-%m-%d/', verbose_name='картинка 5')
     image_6 = models.ImageField(blank=True, upload_to='images/%Y-%m-%d/', verbose_name='картинка 6')
 
-    is_published = models.BooleanField(blank=True, default=True, verbose_name='опубликован')
+    is_published = models.BooleanField(blank=True, default=True, verbose_name='опубликовано')
 
     class Meta:
         verbose_name = 'товар'

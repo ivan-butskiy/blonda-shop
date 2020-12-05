@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 import SectionItem from './components/section-item';
+import NewProducSlides from './components/new-product-slides';
 
 import BlondaShopService from '../../service/blonda-shop-service';
 
@@ -33,6 +34,7 @@ class Home extends Component {
         return (
             <Fragment>
                 <div className='container mt-5'>
+                    <NewProducSlides />
                     <div className='row'>
                         { sectionList }
                     </div>
@@ -43,3 +45,5 @@ class Home extends Component {
 };
 
 export default Home;
+
+// TODO добавить динамическое изменение Title

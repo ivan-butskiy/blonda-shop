@@ -57,6 +57,12 @@ export default class BlondaShopService {
         return response;
     };
 
+    
+    getFilterInfo = async () => {
+        const response = await this.getResource('api/shop/filterinfo/');
+        return response;
+    };
+    
     submitFeedback = async (id, header, text) => {
 
         const config = {
@@ -72,9 +78,42 @@ export default class BlondaShopService {
     
     };
 
-    getFilterInfo = async () => {
-        const response = await this.getResource('api/shop/filterinfo/');
+    getFilteredProducts = async (
+        productSlug,
+        filterSize, 
+        filterColor, 
+        filterBrand,
+        minPrice,
+        maxPrice,
+        filterNew,
+        filterSell
+    ) => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        const filterSet = {
+            size: filterSize,
+            color: filterColor,
+            brand: filterBrand,
+            min_price: minPrice,
+            max_price: maxPrice,
+            new: filterNew,
+            sell: filterSell
+        }
+        const body = JSON.stringify(filterSet)
+        const response = await axios.post(`${this._apiBase}api/shop/filtered-products/${productSlug}/`, body, config);
+    
+        return response.data
+
+    };
+
+    getNewProducts = async () => {
+        const response = await this.getResource('api/shop/products/new/')
+
         return response;
-    }
+    };
 
 };

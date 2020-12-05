@@ -17,8 +17,8 @@ class FilterPanel extends Component {
         filterBrand: '',
         minPrice: null,
         maxPrice: null,
-        filterNew: null,
-        filterSell: null
+        filterNew: false,
+        filterSell: false
     };
 
     handlerFiltersChoose = (e) => {
@@ -26,6 +26,22 @@ class FilterPanel extends Component {
             ...this.state,
             [e.target.name]: e.target.value
         })
+    };
+
+    handlerSellChecked = (e) => {
+        if (this.state.filterSell === false) {
+            this.setState({filterSell: true})
+        } else {
+            this.setState({filterSell: false})
+        };
+    };
+
+    handlerNewChecked = (e) => {
+        if (this.state.filterNew === false) {
+            this.setState({filterNew: true})
+        } else {
+            this.setState({filterNew: false})
+        };
     };
 
     submitFilters = (e) => {
@@ -78,6 +94,8 @@ class FilterPanel extends Component {
         const colorItems = colors.map(color => (
             <option key={color.color}>{color.color}</option>
         ))
+
+        const { filterSell } = this.state;
 
         return (
             <Fragment>
@@ -154,7 +172,7 @@ class FilterPanel extends Component {
                                 className='form-check-input' 
                                 id='exampleCheck1'
                                 name='filterNew'
-                                onChange={ (e) => this.handlerFiltersChoose(e) } />
+                                onChange={ (e) => this.handlerNewChecked(e) } />
                             <label className='form-check-label' htmlFor='exampleCheck1'>Новинка</label>
                         </div>
                         <div className='form-group form-check mt-3'>
@@ -163,7 +181,9 @@ class FilterPanel extends Component {
                                 className='form-check-input' 
                                 id='exampleCheck2'
                                 name='filterSell'
-                                onChange={ (e) => this.handlerFiltersChoose(e) } />
+                                checked={ filterSell }
+                                onChange={ (e) => this.handlerSellChecked(e) }
+                                 />
                             <label className='form-check-label' htmlFor='exampleCheck2'>Акционный товар</label>
                         </div>
                         <button

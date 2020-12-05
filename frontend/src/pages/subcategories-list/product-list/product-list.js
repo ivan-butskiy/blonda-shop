@@ -16,13 +16,13 @@ class ProductList extends Component {
 
     productList = (slug) => (
         this.service.getProductList(slug)
-            .then((products) => {
-                this.setState({
-                    products: products.results.map((product) => {
-                        return <ProductItem product={ product } key={ product.id } />
-                    })
-                });
-            })   
+        .then((products) => {
+            this.setState({
+                products: products.results.map((product) => {
+                    return <ProductItem product={ product } key={ product.id } />
+                })
+            });
+        })
     );
 
     getAllProducts = () => (
@@ -34,7 +34,7 @@ class ProductList extends Component {
                     })
                 });
             })
-    )
+    );
 
     componentDidMount() {
         if (this.state.subcategory) {
@@ -51,7 +51,8 @@ class ProductList extends Component {
             });
             this.productList(this.props.subcategory);
         };
-    }
+        console.log(this.props)
+    };
 
     render() {
 

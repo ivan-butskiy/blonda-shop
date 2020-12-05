@@ -70,6 +70,11 @@ export default class BlondaShopService {
 
         await axios.post(`${this._apiBase}api/shop/products/feedbacks/${id}/`, body, config)
     
+    };
+
+    getFilterInfo = async () => {
+        const response = await this.getResource('api/shop/filterinfo/');
+        return response;
     }
 
 };

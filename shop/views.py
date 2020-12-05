@@ -11,10 +11,32 @@ from .serializers import (
     ProductPreviewSerializer,
     ProductDetailSerializer,
     SubcategoryPreviewSerializer,
-    FeedBackSerializer
+    FeedBackSerializer,
+    ColorsPreview,
+    SizesPreview,
+    BrandsPreview
 )
 
-from .models import Section, Category, Subcategory, Product, FeedBack
+from .models import Section, Category, Subcategory, Product, FeedBack, Brand, Color, Size
+
+
+class FilterInfo(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        brands = Brand.objects.all()
+        colors = Color.objects.all()
+        sizes = Size.objects.all()
+
+        brands_serializer = BrandsPreview(brands, many=True)
+        colors_serializer = ColorsPreview(colors, many=True)
+        sizes_serializer = SizesPreview(sizes, many=True)
+
+        return Response(
+            {'colors': colors_serializer.data,
+            'brands': brands_serializer.data,
+            'sizes': sizes_serializer.data },
+        )
 
 
 class FeedBackView(APIView):

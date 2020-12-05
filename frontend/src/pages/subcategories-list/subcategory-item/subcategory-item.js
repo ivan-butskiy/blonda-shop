@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import './subcategory-item.css';
 
@@ -27,10 +28,10 @@ class SubcategoryItem extends Component {
         const { image, title } = this.state;
 
         return (
-            <div className='subcategory nav-link px-4 rounded-pill' onClick={() => this.onClickHandler()} >
+            <Link className='subcategory nav-link px-4 rounded-pill' to={`/products/${this.props.category}/${this.props.subcategory.slug}/`} >
                 <img src={ image } className='mr-2' alt={ title } />
                 { title }
-            </div>
+            </Link>
         )
     }
     

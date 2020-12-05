@@ -242,7 +242,7 @@ class ProductDetail extends Component {
                                 </div>
                                 <button
                                     type='submit'
-                                    className='btn btn-primary btn-block text-uppercase mb-2 shadow-sm mt-3'>
+                                    className='btn btn-block text-uppercase mb-2 shadow-sm mt-3'>
                                     <i className='fa fa-shopping-cart mr-2'></i>В корзину
                                 </button>
                             </form>

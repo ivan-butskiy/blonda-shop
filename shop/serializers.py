@@ -15,6 +15,24 @@ from .models import (
 User = get_user_model()
 
 
+class SizesPreview(serializers.ModelSerializer):
+    class Meta:
+        model = Size
+        fields = ['size']
+
+
+class ColorsPreview(serializers.ModelSerializer):
+    class Meta:
+        model = Color
+        fields = ['color']
+
+
+class BrandsPreview(serializers.ModelSerializer):
+    class Meta:
+        model = Brand
+        fields = ['title']
+
+
 class UserFullNameSerializer(serializers.ModelSerializer):
     class Meta:
         model = User

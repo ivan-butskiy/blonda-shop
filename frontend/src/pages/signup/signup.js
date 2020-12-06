@@ -115,7 +115,7 @@ const SignUp = ({ signup, isAuthenticated }) => {
                                         </div>
                                         <p className='mt-4 text-muted'>
                                         У вас уже есть аккаунт? Тогда вы можете пройти <Link to='/login'>авторизацию</Link></p>
-                                        <button type='submit' className='btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm'>Войти</button>
+                                        <button type='submit' className='btn btn-block text-uppercase mb-2 rounded-pill shadow-sm signup-button-blonda'>Войти</button>
                                     </form>
                                 </div>
                             </div>

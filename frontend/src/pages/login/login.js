@@ -18,7 +18,11 @@ const Login = ({ login, isAuthenticated }) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        login(email, password);
+        login(email, password)
+            .then((res) => {
+                if (!res || res.status !== 200)
+                    console.log('Проверьте правильность введенных данных.')
+            });
     }
 
     if (isAuthenticated) {
@@ -69,7 +73,7 @@ const Login = ({ login, isAuthenticated }) => {
                                         </div>
                                         <p className='mt-4 text-muted'>
                                         У вас еще нет аккаунта? Тогда вы можете пройти <Link to='/signup'>регистрацию</Link></p>
-                                        <button type='submit' className='btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm'>Войти</button>
+                                        <button type='submit' className='btn btn-block text-uppercase mb-2 rounded-pill shadow-sm login-button-blonda'>Войти</button>
                                     </form>
                                 </div>
                             </div>

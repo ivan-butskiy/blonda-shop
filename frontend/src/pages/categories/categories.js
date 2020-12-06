@@ -60,7 +60,7 @@ class CategoriesList extends Component {
 
         return (
             <Fragment>
-                <div className='container mt-5'>
+                <div className='container mt-5 mb-5'>
                     <div className='row'>
                         { categoryList }
                     </div>

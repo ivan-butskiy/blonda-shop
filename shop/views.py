@@ -44,35 +44,42 @@ class OrderRegisterView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        # try:
-        order = Order()
+        try:
+            order = Order()
 
-        order.last_name = request.data['consumer_data']['last_name']
-        order.first_name = request.data['consumer_data']['first_name']
-        order.phone = request.data['consumer_data']['phone']
-        order.region = request.data['consumer_data']['region']
-        order.district = request.data['consumer_data']['email']
-        order.city = request.data['consumer_data']['city']
+            order.last_name = request.data['consumer_data']['last_name']
+            order.first_name = request.data['consumer_data']['first_name']
+            order.phone = request.data['consumer_data']['phone']
+            order.email = request.data['consumer_data']['email']
+            order.region = request.data['consumer_data']['region']
+            order.district = request.data['consumer_data']['district']
+            order.city = request.data['consumer_data']['city']
 
-        delivery = Delivery.objects.filter(id=int(request.data['consumer_data']['choose_delivery_id']))
+            delivery = Delivery.objects.get(id=int(request.data['consumer_data']['choose_delivery_id']))
+            order.delivery = delivery
 
-        if request.user.is_authenticated:
-            order.consumer_id = request.user.id
-            order.save()
-        else:
-            order.save()
-        for item in request.data['products']:
-            product = Product.objects.get(slug=item['slug'])
+            if request.user.is_authenticated:
+                order.consumer_id = request.user.id
+                user = User.objects.get(id=request.user.id)
+                user.buy_count += 1
+                user.save()
+                order.save()
+            else:
+                order.save()
+            for item in request.data['products']:
+                product = Product.objects.get(slug=item['slug'])
+                user.buy_sum += product.price
+                user.save()
 
-            OrderItem.objects.create(
-                product=product, size=item['size'],
-                color=item['color'], order=order
-            )
-    
+                OrderItem.objects.create(
+                    product=product, size=item['size'],
+                    color=item['color'], order=order
+                )
+        
 
-        return Response({'success': 'success'})
-        # except:
-        #     return Response({'fail': 'fail'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'order': order.id})
+        except:
+            return Response({'fail': 'fail'}, status=status.HTTP_404_NOT_FOUND)
 
 
 class OrderInfoView(APIView):

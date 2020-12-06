@@ -9,3 +9,16 @@
 .container-fluid .row .col-md-6 .login .container .row .col-lg-10 p {
   margin-top: 2rem;
 }
+
+.signup-button-blonda {
+  background-color: #ff9900;
+  border-color: #ff9900;
+  color: white;
+  font-weight: bold;
+}
+
+.signup-button-blonda:hover {
+  background-color: #ff9900;
+  border-color: #ff9900;
+  color: #464646;
+} 

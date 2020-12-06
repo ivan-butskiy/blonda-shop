@@ -12,6 +12,7 @@ import SubcategoriesList from './pages/subcategories-list/subcategories-list';
 import ProductDetail from './pages/product-detail/product-detail';
 import Cart from './pages/cart';
 import Favorites from './pages/favorites';
+import SuccessPage from './pages/success-page';
 
 import store from './store';
 
@@ -23,6 +24,7 @@ const App = () => (
       <Hoc>
         <Switch>
           <Route path='/' exact component={ Home } />
+          <Route path='/success-order/' component={ SuccessPage } exact />
           <Route path='/login/' component={ Login } exact />
           <Route path='/signup/' component={ SignUp } />
           <Route path='/favorites/' component={ Favorites } />

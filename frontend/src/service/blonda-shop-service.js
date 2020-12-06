@@ -171,7 +171,7 @@ export default class BlondaShopService {
 
         const response = await axios.post(`${this._apiBase}api/shop/order/register/`, body, config);
 
-        return response.data
+        return response
     }
 
 };

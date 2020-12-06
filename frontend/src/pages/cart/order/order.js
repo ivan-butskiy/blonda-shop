@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import BlondaShopService from '../../../service/blonda-shop-service';
 
+import { connect } from 'react-redux';
+
+import { clearBasket } from '../../../actions/basket';
+
+import { Redirect } from 'react-router-dom';
+
 import './order.css';
 
 class Order extends Component {
@@ -18,7 +24,10 @@ class Order extends Component {
 
         deliveryItems: [],
 
-        chooseDelivery: ''
+        chooseDelivery: '',
+
+        success: '',
+        orderId: ''
     };
 
     getUserInfo() {
@@ -73,8 +82,16 @@ class Order extends Component {
             district,
             city,
             chooseDelivery
-        );
-        console.log('Was submit')
+        )
+        .then((response) => {
+            if (response.status === 200) {
+                this.setState({
+                    success: true,
+                    orderId: response.data.order
+                });
+                this.props.clearBasket();
+            };
+        })
     };
 
 
@@ -84,8 +101,19 @@ class Order extends Component {
     };
 
     render() {
-        
-        const { firstName, lastName, phone, email, region, district, city } = this.state;
+
+        const { firstName, lastName, phone, email, region, district, city, success, orderId } = this.state;
+
+        if (success === true) {
+            return (
+                <Redirect
+                    to={{
+                        pathname: `/success-order/`,
+                        state: { orderNumber: orderId }
+                        }}
+                    />
+                )
+        }
 
         const deliveryItems = this.state.deliveryItems.map(item => {
             return (
@@ -208,4 +236,4 @@ class Order extends Component {
     };
 };
 
-export default Order;
+export default connect(null, { clearBasket })(Order);

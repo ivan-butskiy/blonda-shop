@@ -75,7 +75,6 @@ class Cart extends Component {
     render() {
 
         const { cartList, sum } = this.state;
-        console.log(this.props.count)
 
         if (this.props.count < 1) {
             return (

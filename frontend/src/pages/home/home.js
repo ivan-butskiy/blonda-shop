@@ -35,7 +35,7 @@ class Home extends Component {
             <Fragment>
                     <NewProductSlides />
                     <div className='container'>
-                        <div className='row mt-5'>
+                        <div className='row mt-5 mb-5'>
                             { sectionList }
                         </div>
                     </div>

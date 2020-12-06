@@ -9,3 +9,16 @@
 .container-fluid .row .col-md-6 .login .container .row .col-lg-10 p {
   margin-top: 2rem;
 }
+
+.login-button-blonda {
+  background-color: #ff9900;
+  border-color: #ff9900;
+  color: white;
+  font-weight: bold;
+}
+
+.login-button-blonda:hover {
+  background-color: #ff9900;
+  border-color: #ff9900;
+  color: #464646;
+}

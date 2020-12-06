@@ -1,0 +1,19 @@
+.pb-5 .favorites h1 {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.pb-5 .favorites .text-center .empty i {
+    color: #ff9900;
+    font-size: 60px;
+    margin: 5rem;
+}
+
+.pb-5 .favorites .text-center .empty {
+    font-family: Roboto;
+}
+
+.pb-5 .favorites .text-center .empty h3 {
+    color: rgba(0, 0, 0, 0.8);
+}

@@ -2,3 +2,16 @@
     font-size: 20px;
 }
 
+.pb-5 .row .col-md-6 button {
+    background-color: #ff9900;
+    border-color: #ff9900;
+    color: white;
+    font-weight: bold;
+}
+
+.pb-5 .row .col-md-6 button:hover {
+    background-color: #ff9900;
+    border-color: #ff9900;
+    color: #464646;
+}
+

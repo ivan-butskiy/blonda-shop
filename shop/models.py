@@ -8,6 +8,7 @@ User = get_user_model()
 class Delivery(models.Model):
     title = models.CharField(max_length=50, verbose_name='название')
     logo = models.ImageField(upload_to='images/%Y-%m-%d/', verbose_name='логотип')
+    is_published = models.BooleanField(blank=True, default=True, verbose_name='опубликовано')
 
     def __str__(self):
         return self.title
@@ -24,18 +25,20 @@ class OrderItem(models.Model):
     order = models.ForeignKey('Order', on_delete=models.CASCADE, verbose_name='заказ')
 
     def __str__(self):
-        return self.product
+        return f'{self.product}'
 
     class Meta:
-        verbose_name = 'товар'
-        verbose_name_plural = 'товары'
+        verbose_name = 'единица заказа'
+        verbose_name_plural = 'единицы заказа'
 
 
 class Order(models.Model):
-    consumer = models.ForeignKey(User, blank=True, on_delete=models.CASCADE, verbose_name='клиент')
+
+    default_admin_user = User.objects.filter(is_superuser=True).last()
+
+    consumer = models.ForeignKey(User, blank=True, default=default_admin_user.id, on_delete=models.CASCADE, verbose_name='клиент')
     last_name = models.CharField(max_length=30, verbose_name='фамилия')
     first_name = models.CharField(max_length=30, verbose_name='имя')
-    patronym = models.CharField(max_length=30, verbose_name='отчество')
 
     phone = models.CharField(max_length=30, verbose_name='телефон')
     email = models.CharField(max_length=50, verbose_name='e-mail')
@@ -50,7 +53,7 @@ class Order(models.Model):
     is_done = models.BooleanField(default=False, verbose_name='выполнен')
 
     def __str__(self):
-        return self.id
+        return f'{self.id}'
 
     class Meta:
         verbose_name = 'заказ'

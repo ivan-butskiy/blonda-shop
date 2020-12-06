@@ -11,7 +11,9 @@ from .views import (
     FeedBackView,
     FilterInfo,
     FilteredProductsView,
-    NewProductsView
+    NewProductsView,
+    OrderInfoView,
+    OrderRegisterView
 )
 
 
@@ -19,6 +21,8 @@ urlpatterns = [
     path('', SectionListView.as_view()),
     path('filtered-products/<str:subcategory_slug>/', FilteredProductsView.as_view()),
     path('filterinfo/', FilterInfo.as_view()),
+    path('order/register/', OrderRegisterView.as_view()),
+    path('order/info/', OrderInfoView.as_view()),
     path('products/new/', NewProductsView.as_view()),
     # path('products/sell/', ),
     path('products/all/', AllProductsPreviewList.as_view()),

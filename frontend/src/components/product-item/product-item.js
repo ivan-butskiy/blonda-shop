@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addProductToBasket } from '../../actions/basket';
+import { addProductToFavorite } from '../../actions/favorite';
 import './product-item.css';
 
 class ProductItem extends Component {
@@ -27,6 +28,17 @@ class ProductItem extends Component {
             '');
     };
 
+    submitTiFavorite = (e) => {
+        e.preventDefault();
+        this.props.addProductToFavorite(
+            this.state.slug, 
+            this.state.title,
+            this.state.header_image,
+            this.state.price,
+            '',
+            '');
+    };
+
     render() {
 
         const { slug, title, header_image, image_1, price, oldPrice, newProduct } = this.state;
@@ -43,8 +55,8 @@ class ProductItem extends Component {
                             <li>
                                 <button 
                                     type='submit'
-                                    onClick={(e) => this.submitToBasket(e)} 
-                                    className='add-to-cart-button'>
+                                    onClick={(e) => this.submitTiFavorite(e)} 
+                                    className='add-to-favorite-button'>
                                     <i className='fas fa-star'></i>
                                 </button>
                             </li>
@@ -74,4 +86,4 @@ class ProductItem extends Component {
 
 };
 
-export default connect(null, { addProductToBasket })(ProductItem);
+export default connect(null, { addProductToBasket, addProductToFavorite })(ProductItem);

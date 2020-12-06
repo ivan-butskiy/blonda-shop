@@ -51,11 +51,11 @@ class Navbar extends Component {
                     <ul className='navbar-nav'>
                         <li className='nav-item text-center'>
                             <i className='far fa-sign-in-alt'></i>
-                            <a className='nav-link' href='/'>Контакты</a>
+                            <Link className='nav-link' to='/'>Контакты</Link>
                         </li>
                         <li className='nav-item text-center'>
-                            <i className='far fa-search'></i>
-                            <a className='nav-link' href='/'>Поиск</a>
+                            <i className='far fa-stars'></i>
+                            <Link className='nav-link' to='/favorites/'>Избранное { this.props.countFavorite ? <span className='badge badge-danger'>{ this.props.countFavorite }</span> : null }</Link>
                         </li>
                         <li className='nav-item text-center'>
                             <i className='fa fa-shopping-cart'></i>
@@ -71,7 +71,8 @@ class Navbar extends Component {
 
 
 const mapStateToProps = state => ({
-    count: state.basketReducer.count
+    count: state.basketReducer.count,
+    countFavorite: state.favoriteReducer.countFavorite
 })
 
 export default connect(mapStateToProps, null)(Navbar);

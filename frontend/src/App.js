@@ -11,7 +11,7 @@ import CategoriesList from './pages/categories/categories';
 import SubcategoriesList from './pages/subcategories-list/subcategories-list';
 import ProductDetail from './pages/product-detail/product-detail';
 import Cart from './pages/cart';
-import Order from './pages/order';
+import Favorites from './pages/favorites';
 
 import store from './store';
 
@@ -25,8 +25,8 @@ const App = () => (
           <Route path='/' exact component={ Home } />
           <Route path='/login/' component={ Login } exact />
           <Route path='/signup/' component={ SignUp } />
+          <Route path='/favorites/' component={ Favorites } />
           <Route path='/cart/' component={ Cart } />
-          <Route path='/order/' component={ Order } />
           <Route path='/products/detail/:slug/'
             render={({ match }) => {
               return <ProductDetail slug={ match.params.slug } />

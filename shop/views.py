@@ -1,9 +1,13 @@
 from django.shortcuts import render
 from rest_framework.response import Response
+from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.generics import RetrieveAPIView, ListAPIView, RetrieveAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.settings import api_settings
+from django.contrib.auth import get_user_model
+from accounts.serializers import UserInfoSerializer
+import json
 from .serializers import (
     SectionSerializer,
     CategoryListSerializer,
@@ -14,10 +18,83 @@ from .serializers import (
     FeedBackSerializer,
     ColorsPreview,
     SizesPreview,
-    BrandsPreview
+    BrandsPreview,
+    DeliverySerializer
 )
 
-from .models import Section, Category, Subcategory, Product, FeedBack, Brand, Color, Size
+from .models import (
+    Section, 
+    Category, 
+    Subcategory, 
+    Product, 
+    FeedBack, 
+    Brand, 
+    Color, 
+    Size, 
+    Delivery,
+    Order,
+    OrderItem
+)
+
+
+User = get_user_model()
+
+
+class OrderRegisterView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        # try:
+        order = Order()
+
+        order.last_name = request.data['consumer_data']['last_name']
+        order.first_name = request.data['consumer_data']['first_name']
+        order.phone = request.data['consumer_data']['phone']
+        order.region = request.data['consumer_data']['region']
+        order.district = request.data['consumer_data']['email']
+        order.city = request.data['consumer_data']['city']
+
+        delivery = Delivery.objects.filter(id=int(request.data['consumer_data']['choose_delivery_id']))
+
+        if request.user.is_authenticated:
+            order.consumer_id = request.user.id
+            order.save()
+        else:
+            order.save()
+        for item in request.data['products']:
+            product = Product.objects.get(slug=item['slug'])
+
+            OrderItem.objects.create(
+                product=product, size=item['size'],
+                color=item['color'], order=order
+            )
+    
+
+        return Response({'success': 'success'})
+        # except:
+        #     return Response({'fail': 'fail'}, status=status.HTTP_404_NOT_FOUND)
+
+
+class OrderInfoView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+
+        queryset = {}
+
+        if request.user.is_authenticated:
+            user = User.objects.get(id=request.user.id)
+            user_serializer = UserInfoSerializer(user)
+            queryset.update(user=user_serializer.data)
+        else:
+            queryset.update(user=None)
+
+        delivery = Delivery.objects.all()
+        delivery_serializer = DeliverySerializer(delivery, many=True, context={'request': request})
+        queryset.update(delivery=delivery_serializer.data)
+
+        return Response(queryset)
+    
 
 
 class NewProductsView(ListAPIView):

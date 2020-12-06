@@ -1,7 +1,8 @@
 import {
     ADD_TO_BASKET,
     DELETE_FROM_BASKET,
-    ALREADY_IN_BASKET
+    ALREADY_IN_BASKET,
+    CLEAR_BASKET
 } from './basket-types';
 
 export const addProductToBasket = (slug, title, headerImage, price, size, color) => dispatch => {
@@ -18,7 +19,7 @@ export const addProductToBasket = (slug, title, headerImage, price, size, color)
                 size: size,
                 color: color
             };
-            basketList[index] = basketObject
+            basketList[index] = basketObject;
             localStorage.setItem('basket-list', JSON.stringify(basketList));
             dispatch({type: ALREADY_IN_BASKET});
 
@@ -65,4 +66,6 @@ export const deleteFromBasket = (slug) => dispatch => {
 
 export const clearBasket = () => async dispatch => {
     localStorage.removeItem('basket-list');
+
+    dispatch({ type: CLEAR_BASKET });
 };

@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 import SectionItem from './components/section-item';
-import NewProducSlides from './components/new-product-slides';
+import NewProductSlides from './components/new-product-slides';
 
 import BlondaShopService from '../../service/blonda-shop-service';
 
@@ -33,12 +33,12 @@ class Home extends Component {
         const sectionList = this.state.sectionList;
         return (
             <Fragment>
-                <div className='container mt-5'>
-                    <NewProducSlides />
-                    <div className='row'>
-                        { sectionList }
+                    <NewProductSlides />
+                    <div className='container'>
+                        <div className='row mt-5'>
+                            { sectionList }
+                        </div>
                     </div>
-                </div>
             </Fragment>
         )
     };

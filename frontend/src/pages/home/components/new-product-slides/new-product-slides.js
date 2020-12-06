@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import logoslider from '../../../../assets/logoslider.png';
 
-import ProductItem from '../../../../components/product-item';
+import NewProductSlidesItem from '../new-product-slides-item';
 import BlondaShopService from '../../../../service/blonda-shop-service';
+
 
 import './new-product-slides.css';
 
 
-class NewProducSlides extends Component {
+class NewProductSlides extends Component {
     
     service = new BlondaShopService();
 
@@ -17,10 +19,16 @@ class NewProducSlides extends Component {
     getCartItems() {
         this.service.getNewProducts()
             .then((products) => {
-                console.log(products)
                 this.setState({
                     cartItems: products.results.map((product => {
-                        return <ProductItem product={ product } key={ product.id } />
+                        return <NewProductSlidesItem 
+                            slug={ product.slug }
+                            key={ product.id }
+                            header={ product.title }
+                            image={ product.header_image }
+                            price={ product.price }
+                            oldPrice={ product.old_price }
+                             />
                     }))
                 });
             });
@@ -33,37 +41,47 @@ class NewProducSlides extends Component {
     render() {
 
         const { cartItems } = this.state;
-        console.dir(cartItems)
 
         return (
-            <div className='row carousel-new-products'>
-                <div className='col-md-4'>
-                    <h1>Новинки</h1>
-                </div>
-                <div id='carouselExampleIndicators' className='carousel slide col-md-8' data-ride='carousel'>
-                    <ol className='carousel-indicators'>
-                        <li data-target='#carouselExampleIndicators' data-slide-to='0' className='active'></li>
-                        <li data-target='#carouselExampleIndicators' data-slide-to='1'></li>
-                        <li data-target='#carouselExampleIndicators' data-slide-to='2'></li>
-                    </ol>
-                    <div className='carousel-inner'>
-                        <div className='carousel-item active'>
-                        { cartItems }
+            <Fragment>
+                <section className='slides-new-products'>
+                    <div id='slider-animation-2' className='carousel slide' data-ride='carousel'>
+
+                    <div className='carousel-inner box-slides-new'>
+                        <div className='carousel-item box-carousel-item active'>
+                            <img
+                                style={{filter: 'blur(5px)'}}
+                                src='https://img.tsn.ua/cached/1518092914/tsn-1dd5ddd6a1f0076bf1e5ac5461d52989/thumbs/x/cf/1d/645133629a1ca64ecc753959e7eb1dcf.jpg' alt='Product slide' />
+                            <div className='text-box'>
+                                <div className='row align-items-center'>
+                                    <div className='col-md-6'>
+                                        <p className='wow header fadeInUp' data-wow-duration='4s'>Новинки</p>
+                                        <p className='wow fadeInUp subheader' data-wow-duration='2s'>От интернет магазина</p>
+                                        <p className='wow fadeInUp subheader' data-wow-duration='2s'>Be Story Trand Zone</p>
+                                    </div>
+                                    <div className='col-md-6 wow slideInLeft' data-wow-duration='4s'>
+                                    <img src={ logoslider } alt='camel' />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
+                        { cartItems }
+
                     </div>
-                    <a className='carousel-control-prev' href='#carouselExampleIndicators' role='button' data-slide='prev'>
-                        <span className='carousel-control-prev-icon' aria-hidden='true'></span>
-                        <span className='sr-only'>Previous</span>
-                    </a>
-                    <a className='carousel-control-next' href='#carouselExampleIndicators' role='button' data-slide='next'>
-                        <span className='carousel-control-next-icon' aria-hidden='true'></span>
-                        <span className='sr-only'>Next</span>
-                    </a>
-                </div>
-            </div>
+
+                        <a className='carousel-control-prev' href='#slider-animation-2' data-slide='prev'>
+                            <span className='carousel-control-prev-icon'></span>
+                        </a>
+                        <a className='carousel-control-next' href='#slider-animation-2' data-slide='next'>
+                            <span className='carousel-control-next-icon'></span>
+                        </a>
+                    </div>
+                </section>
+    </Fragment>
         )
     }
 
 }
 
-export default NewProducSlides;
+export default NewProductSlides;

@@ -87,7 +87,6 @@ class OrderAdmin(admin.ModelAdmin):
     fields = [
         'consumer',
         'last_name',
-        'patronym',
         'first_name',
         'phone',
         'email',
@@ -116,5 +115,5 @@ admin.site.register(Brand)
 admin.site.register(FeedBack, FeedBackModelAdmin)
 admin.site.register(Product, ProductModelAdmin)
 admin.site.register(Delivery)
-# admin.site.register(OrderItem)
+admin.site.register(OrderItem)
 admin.site.register(Order, OrderAdmin)

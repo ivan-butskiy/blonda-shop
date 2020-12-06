@@ -8,11 +8,18 @@ from .models import (
     Brand,
     Size,
     Color,
-    FeedBack
+    FeedBack,
+    Delivery
 )
 
 
 User = get_user_model()
+
+
+class DeliverySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Delivery
+        fields = '__all__'
 
 
 class SizesPreview(serializers.ModelSerializer):

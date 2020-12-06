@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { deleteFromBasket } from '../../actions/basket';
+import { deleteFromBasket, clearBasket } from '../../actions/basket';
 
 import CartItem from './cart-item';
+import Order from './order';
 
 import './cart.css';
 
@@ -20,7 +21,6 @@ class Cart extends Component {
     getCartList() {
         this.setState({
             cartList: this.props.basketList.map((item) => {
-            // cartList: this.state.cartItems.map((item) => {
                 return <CartItem 
                     key={item.slug}
                     slug={item.slug}
@@ -30,7 +30,6 @@ class Cart extends Component {
                     size={item.size}
                     color={item.color}
                     delete={ () => this.deleteCartItem(item.slug) }
-                    // delete={ () => this.props() }
                     />
             })
         });
@@ -38,7 +37,6 @@ class Cart extends Component {
 
     deleteCartItem = (slug) => {
         this.props.deleteFromBasket(slug);
-        console.log('Deleted', slug)
         this.getCartList();
         this.setState({cartItems: this.props.basketList});
         this.getTotalSum();
@@ -51,6 +49,13 @@ class Cart extends Component {
             count += parseFloat(item.price);
         };
         this.setState({sum: count.toFixed(2)});
+    }
+
+    clearBasketHandler() {
+        this.props.clearBasket();
+        this.getCartList();
+        this.setState({cartItems: this.props.basketList});
+        this.getTotalSum();
     }
 
     componentDidUpdate(prevProps) {
@@ -70,6 +75,23 @@ class Cart extends Component {
     render() {
 
         const { cartList, sum } = this.state;
+        console.log(this.props.count)
+
+        if (this.props.count < 1) {
+            return (
+                <div className='pb-5'>
+                    <div className='container favorites'>
+                        <div className='row text-center'>
+                            <div className='empty col-lg-12 p-5 bg-white rounded shadow-sm mb-5'>
+                                <i className='far fa-stars'></i>
+                                <h3>Ваша корзина пока что пуста</h3>
+                                <p>Но вы ее можете пополнить, начав покупки</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
 
         return (
             <div className='pb-5'>
@@ -111,8 +133,26 @@ class Cart extends Component {
                     </div>
                 </div>
                 
-                <p className='count'><strong>Общая сумма заказа:</strong> { sum } грн.</p>
-                <p className='count'><strong>Количество товаров в корзине:</strong> {this.props.count}</p>
+                <div className='row justify-content-center'>
+                    <div className='col-md-6'>
+                        <p className='count'><strong>Общая сумма заказа:</strong> { sum } грн.</p>
+                        <p className='count'><strong>Количество товаров в корзине:</strong> {this.props.count}</p>
+                    </div>
+                    <div className='col-md-6'>
+                        <button
+                            type='submit'
+                            className='btn btn-block text-uppercase mb-2 shadow-sm mt-3'
+                            onClick={ () => this.clearBasketHandler() }
+                            >
+                            Очистить корзину
+                        </button>
+                    </div>
+                </div>
+                </div>
+                <hr className='mt-5 mb-5'></hr>
+                <div className='order-in-cart container mt-5'>
+                    <h3>Оформление заказа</h3>
+                    <Order/>
                 </div>
             </div>
         );
@@ -125,4 +165,4 @@ const mapStateToProps = store => ({
     count: store.basketReducer.count
 })
 
-export default  connect(mapStateToProps, { deleteFromBasket })(Cart);
+export default  connect(mapStateToProps, { deleteFromBasket, clearBasket })(Cart);

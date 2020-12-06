@@ -116,4 +116,62 @@ export default class BlondaShopService {
         return response;
     };
 
+    getInfoForOrder = async () => {
+        const user = localStorage.getItem('access');
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        };
+        if (user) {
+            config.headers.Authorization = `JWT ${localStorage.getItem('access')}`;
+        }
+
+        const response = await axios.get(`${this._apiBase}api/shop/order/info/`, config);
+
+        return response.data;
+    };
+
+    submitOrder = async (
+        firstName,
+        lastName,
+        phone,
+        email,
+        region,
+        district,
+        city,
+        chooseDelivery
+    ) => {
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        };
+        const user = localStorage.getItem('access');
+        if (user) {
+            config.headers.Authorization = `JWT ${localStorage.getItem('access')}`;
+        }
+
+        const products = Object(JSON.parse(localStorage.getItem('basket-list')));
+
+        const body = {
+            consumer_data : {
+                first_name: firstName,
+                last_name: lastName,
+                phone: phone,
+                email: email,
+                region: region,
+                district: district,
+                city: city,
+                choose_delivery_id: chooseDelivery
+            },
+            products: products
+        };
+
+        const response = await axios.post(`${this._apiBase}api/shop/order/register/`, body, config);
+
+        return response.data
+    }
+
 };

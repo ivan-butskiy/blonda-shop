@@ -88,9 +88,6 @@ class SubcategoriesList extends Component {
                     <div className='col-lg-9 mb-5'>
                         <div className='p-5 bg-white d-flex align-items-center shadow-sm h-100'>
                             <div className='row demo-content'>
-                                {/* { this.props.subcategory ? <FilterPanel 
-                                    filterHandler={ this.filterHandler }
-                                    /> : null } */}
                                 <ProductList 
                                     subcategory={ this.props.subcategory } 
                                     filterSize={filterSize} 

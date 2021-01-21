@@ -13,18 +13,19 @@ from .views import (
     FilteredProductsView,
     NewProductsView,
     OrderInfoView,
-    OrderRegisterView
+    OrderRegisterView,
+    SaleProductsView
 )
 
 
 urlpatterns = [
     path('', SectionListView.as_view()),
-    path('filtered-products/<str:subcategory_slug>/', FilteredProductsView.as_view()),
+    path('filtered-products/', FilteredProductsView.as_view()),
     path('filterinfo/', FilterInfo.as_view()),
     path('order/register/', OrderRegisterView.as_view()),
     path('order/info/', OrderInfoView.as_view()),
-    path('products/new/', NewProductsView.as_view()),
-    # path('products/sell/', ),
+    path('new-products/', NewProductsView.as_view()),
+    path('sale-products/', SaleProductsView.as_view()),
     path('products/all/', AllProductsPreviewList.as_view()),
     path('products/feedbacks/<int:product_id>/', FeedBackView.as_view()),
     path('products/<str:slug>/', ProductListView.as_view()),

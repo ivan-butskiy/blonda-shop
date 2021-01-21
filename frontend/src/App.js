@@ -12,6 +12,9 @@ import ProductDetail from './pages/product-detail/product-detail';
 import Cart from './pages/cart';
 import Favorites from './pages/favorites';
 import SuccessPage from './pages/success-page';
+import Contacts from './pages/contacts';
+import Sale from './pages/sale';
+import New from './pages/new';
 
 import store from './store';
 
@@ -24,6 +27,9 @@ const App = () => (
         <Switch>
           <Route path='/' exact component={ Home } />
           <Route path='/success-order/' component={ SuccessPage } exact />
+          <Route path='/sale/' component={ Sale } exact />
+          <Route path='/new/' component={ New } exact />
+          <Route path='/contacts/' component={ Contacts } exact />
           <Route path='/login/' component={ Login } exact />
           <Route path='/signup/' component={ SignUp } />
           <Route path='/favorites/' component={ Favorites } />

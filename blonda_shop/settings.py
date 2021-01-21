@@ -1,15 +1,19 @@
 from pathlib import Path
 from datetime import timedelta
 import os
+from decouple import config
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = '_2m+%8e(f)rctv*#6+tbb*ru49jfrxrk+v4tof^c#)$k%!lbt@'
+DEBUG = config('DEBUG',
+    default=False,
+    cast=bool)
 
-DEBUG = True
+SECRET_KEY = config('SECRET_KEY')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config('ALLOWED_HOSTS',
+    cast=lambda v: [s.strip() for s in v.split(',')])
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -24,7 +28,7 @@ INSTALLED_APPS = [
     'djoser',
     'ckeditor',
     'ckeditor_uploader',
-
+    'django_filters',
     'accounts',
     'shop'
 ]
@@ -101,7 +105,6 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
 CORS_ALLOW_ALL_ORIGINS = True
 
 AUTH_USER_MODEL = 'accounts.UserAccount'
@@ -110,6 +113,9 @@ AUTH_USER_MODEL = 'accounts.UserAccount'
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated'
+    ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
@@ -162,3 +168,17 @@ CKEDITOR_UPLOAD_PATH = 'uploads/'
 # EMAIL_HOST_USER = ''
 # EMAIL_HOST_PASSWORD = ''
 # EMAIL_PORT = 587
+
+ENV = config('ENV', default='production')
+
+if ENV == 'production':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': config('DB_NAME', default=''),
+            'USER': config('DB_USER', default=''),
+            'PASSWORD': config('DB_PASSWORD', default=''),
+            'HOST': 'localhost',
+            'PORT': ''
+        }
+    }

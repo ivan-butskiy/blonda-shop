@@ -37,10 +37,10 @@ class Navbar extends Component {
                             <Link className='nav-link' to='/categories/womans/'>Девушкам</Link>
                         </li>
                         <li className='nav-item link text-center'>
-                            <Link className='nav-link' to='/'>Акции</Link>
+                            <Link className='nav-link red-link' to='/sale/'>Sale</Link>
                         </li>
                         <li className='nav-item link text-center'>
-                            <Link className='nav-link' to='/'>Новинки</Link>
+                            <Link className='nav-link' to='/new/'>New</Link>
                         </li>
                     </ul>
                         
@@ -51,7 +51,7 @@ class Navbar extends Component {
                     <ul className='navbar-nav'>
                         <li className='nav-item text-center'>
                             <i className='far fa-sign-in-alt'></i>
-                            <Link className='nav-link' to='/'>Контакты</Link>
+                            <Link className='nav-link' to='/contacts/'>Контакты</Link>
                         </li>
                         <li className='nav-item text-center'>
                             <i className='far fa-stars'></i>

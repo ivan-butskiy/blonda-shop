@@ -45,6 +45,7 @@ class FilterPanel extends Component {
     };
 
     submitFilters = (e) => {
+        e.preventDefault();
         const {
             filterSize,
             filterColor,
@@ -54,7 +55,6 @@ class FilterPanel extends Component {
             filterNew,
             filterSell
         } = this.state;
-        e.preventDefault();
 
         this.props.filterHandler(
             filterSize,
@@ -99,7 +99,6 @@ class FilterPanel extends Component {
 
         return (
             <Fragment>
-                <h3 className='mb-4 filter-header'>Фильтр</h3>
                 <form className='container row filter-panel mb-5' onSubmit={ e => this.submitFilters(e) }>
                     <div className='col-md-4 mt-3'>
                         <div className='mt-3'>

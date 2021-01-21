@@ -3,6 +3,7 @@ import axios from 'axios';
 export default class BlondaShopService {
 
     _apiBase = 'http://localhost:8000/';
+    // _apiBase = process.env.REACT_APP_API_URL;
 
     getResource = async (url, ...args) => {
         const response = await fetch(`${this._apiBase}${url}`);
@@ -79,7 +80,7 @@ export default class BlondaShopService {
     };
 
     getFilteredProducts = async (
-        productSlug,
+        subcategorySlug,
         filterSize, 
         filterColor, 
         filterBrand,
@@ -95,6 +96,7 @@ export default class BlondaShopService {
         };
 
         const filterSet = {
+            subcategory: subcategorySlug,
             size: filterSize,
             color: filterColor,
             brand: filterBrand,
@@ -104,15 +106,14 @@ export default class BlondaShopService {
             sell: filterSell
         }
         const body = JSON.stringify(filterSet)
-        const response = await axios.post(`${this._apiBase}api/shop/filtered-products/${productSlug}/`, body, config);
+        const response = await axios.post(`${this._apiBase}api/shop/filtered-products/`, body, config);
     
-        return response.data
+        return response
 
     };
 
     getNewProducts = async () => {
-        const response = await this.getResource('api/shop/products/new/')
-
+        const response = await this.getResource('api/shop/new-products/')
         return response;
     };
 
@@ -172,6 +173,11 @@ export default class BlondaShopService {
         const response = await axios.post(`${this._apiBase}api/shop/order/register/`, body, config);
 
         return response
-    }
+    };
+
+    getSaleProducts = async () => {
+        const response = await this.getResource('api/shop/sale-products/')
+        return response;
+    };
 
 };

@@ -44,17 +44,14 @@ class ProductList extends Component {
             })
     );
 
-    componentDidMount() {
-        if (this.state.subcategory) {
-            this.productList(this.state.subcategory);
-        } else {
-            this.getAllProducts();
-        };
-    };
-
     getFilteredProducts() {
+        let subcategory = '';
+        if (this.state.subcategory) {
+            subcategory = this.state.subcategory;
+        };
+
         this.service.getFilteredProducts(
-            this.props.subcategory,
+            subcategory,
             this.props.filterSize, 
             this.props.filterColor, 
             this.props.filterBrand,
@@ -65,31 +62,30 @@ class ProductList extends Component {
             )
         .then((productsList) => {
             this.setState({
-                products: productsList.map((product) => <ProductItem product={ product } key={ product.id } /> )
+                products: productsList.data.map((product) => <ProductItem product={ product } key={ product.id } /> )
             });
         });
     };
 
-    // componentDidUpdate(prevProps) {
-    //     if (this.props.filterBrand !== prevProps.filterBrand) {
-
-    //         // if (this.props.filterBrand.length == 0) {
-
-    //         // }
-    //         console.log(this.props)
-    //         this.getFilteredProducts();
-    //     }
-    // }
-
     componentDidUpdate(prevProps) {
         if (this.props.subcategory !== prevProps.subcategory) {
-            console.log(this.props.subcategory);
             this.setState({
                 subcategory: this.props.subcategory
             });
             this.productList(this.props.subcategory);
             };
+        if (this.props !== prevProps) {
+            this.getFilteredProducts();
+            };
         };
+
+    componentDidMount() {
+        if (this.state.subcategory) {
+            this.productList(this.state.subcategory);
+        } else {
+            this.getAllProducts();
+        };
+    };
 
     render() {
 

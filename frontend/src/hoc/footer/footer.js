@@ -20,8 +20,18 @@ class Footer extends Component {
                         <div className='col-lg-4 col-md-6 mb-4 mb-lg-0'><img src='img/logo.png' alt='' width='180' className='mb-3' />
                             <p className='font-italic text-muted'>Интернет-магазин модной одежды для молодежи.</p>
                             <ul className='list-inline mt-4'>
-                                <li className='list-inline-item'><a href='/' target='_blank' title='facebook'><i className='fab fa-facebook-square' style={{color: '#ff9900'}}></i></a></li>
-                                <li className='list-inline-item'><a href='/' target='_blank' title='instagram'><i className='fab fa-instagram' style={{color: '#ff9900'}}></i></a></li>
+                                <li className='list-inline-item'>
+                                    <a href='https://www.instagram.com/be_story_trand/' rel="noreferrer" target='_blank' title='instagram'>
+                                        <i className='fab fa-instagram' style={{color: '#ff9900'}}>
+                                        </i>
+                                    </a>
+                                </li>
+                                <li className='list-inline-item'> 
+                                    <a href='http://t.me/be_story' rel="noreferrer" target='_blank' title='telegram'>
+                                        <i className='fab fa-telegram' style={{color: '#ff9900'}}>
+                                        </i>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                         <div className='col-lg-2 col-md-6 mb-4 mb-lg-0'>
@@ -29,8 +39,8 @@ class Footer extends Component {
                         <ul className='list-unstyled mb-0'>
                             <li className='mb-2'><Link to='/categories/mens/' className='text-muted'>Для парней</Link></li>
                             <li className='mb-2'><Link to='/categories/womans/' className='text-muted'>Для девушек</Link></li>
-                            <li className='mb-2'><Link to='/' className='text-muted'>Акции</Link></li>
-                            <li className='mb-2'><Link to='/' className='text-muted'>Новинки</Link></li>
+                            <li className='mb-2'><Link to='/sale/' className='text-muted'>Sale</Link></li>
+                            <li className='mb-2'><Link to='/new/' className='text-muted'>New</Link></li>
                         </ul>
                         </div>
                         <div className='col-lg-2 col-md-6 mb-4 mb-lg-0'>
@@ -39,7 +49,7 @@ class Footer extends Component {
                             { !isAuthenticated ? <li className='mb-2'><Link to='/login/' className='text-muted'>Вход</Link></li> : null }
                             { !isAuthenticated ? <li className='mb-2'><Link to='/signup/' className='text-muted'>Регистрация</Link></li> : null }
                             
-                            <li className='mb-2'><Link to='/' className='text-muted'>Контакты</Link></li>
+                            <li className='mb-2'><Link to='/contacts/' className='text-muted'>Контакты</Link></li>
                             <li className='mb-2'><Link to='/' className='text-muted'>Условия заказа</Link></li>
                         </ul>
                         </div>

@@ -8,6 +8,7 @@ from rest_framework.settings import api_settings
 from django.contrib.auth import get_user_model
 from accounts.serializers import UserInfoSerializer
 import json
+# from django_filters.rest_framework import DjangoFilterBackend
 from .serializers import (
     SectionSerializer,
     CategoryListSerializer,
@@ -104,6 +105,14 @@ class OrderInfoView(APIView):
         return Response(queryset)
     
 
+class SaleProductsView(ListAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = ProductPreviewSerializer
+
+    def get_queryset(self):
+        sale_products = Product.objects.filter(old_price__gt=0)
+        return sale_products[:30] 
+
 
 class NewProductsView(ListAPIView):
     permission_classes = [AllowAny]
@@ -111,15 +120,18 @@ class NewProductsView(ListAPIView):
 
     def get_queryset(self):
         new_products = Product.objects.filter(new_product=True)
-        return new_products[:9] 
-
+        return new_products[:30] 
 
 class FilteredProductsView(APIView):
     permission_classes = [AllowAny]
 
-    def post(self, request, subcategory_slug):
-        subcategory = Subcategory.objects.get(slug=subcategory_slug)
-        queryset = Product.objects.filter(subcategory=subcategory.pk)
+
+    def post(self, request):
+        queryset = Product.objects.all()
+        print(request.data)
+
+        if request.data['subcategory']:
+            queryset = queryset.filter(subcategory__slug=request.data['subcategory'])
 
         if request.data['size']:
             queryset = queryset.filter(sizes__size=request.data['size'])

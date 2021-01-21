@@ -64,7 +64,6 @@ class SubcategoriesList extends Component {
         this.getSubcategoriesList();
     };
 
-
     render() {
 
         const subcategoriesList = this.state.subcategoriesList;
@@ -78,7 +77,8 @@ class SubcategoriesList extends Component {
             filterSell } = this.state;
 
         return (
-                <div className='row mt-5 justify-content-center subcategories-list text-center'>
+                <div className='row mt-5 justify-content-center subcategories-list'>
+                    <FilterPanel filterHandler={ this.filterHandler } />
                     <div className='col-lg-3 mb-4'>
                         <nav className='nav flex-column shadow-sm p-3'>
                             { subcategoriesList ? subcategoriesList : <Spinner /> }
@@ -102,8 +102,7 @@ class SubcategoriesList extends Component {
                         </div>
                     </div>
                 </div>
-
-        );
+            );
     };
 };
 

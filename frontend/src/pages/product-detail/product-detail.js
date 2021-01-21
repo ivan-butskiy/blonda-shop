@@ -59,9 +59,8 @@ class ProductDetail extends Component {
             this.setState({
                 modalActive: false
             })
-        }
-        console.log(this.state.modalActive)
-    }
+        };
+    };
 
     handlerBasket = (e) => {
         this.setState({

@@ -5,12 +5,13 @@ import ProductList from './product-list/product-list';
 import FilterPanel from './filter-panel';
 import './subcategories-list.css';
 
+import Spinner from './spinner';
 import BlondaShopService from '../../service/blonda-shop-service';
 
 class SubcategoriesList extends Component {
     
     state = {
-        subcategoriesList: [],
+        subcategoriesList: '',
         category: this.props.category,
         subcategory: this.props.subcategory,
 
@@ -41,8 +42,7 @@ class SubcategoriesList extends Component {
                 filterNew: filterNew,
                 filterSell: filterSell
             })
-    }
-
+    };
 
     service = new BlondaShopService();
 
@@ -78,10 +78,10 @@ class SubcategoriesList extends Component {
             filterSell } = this.state;
 
         return (
-                <div className='row mt-5'>
-                    <div className='col-lg-3 mb-4 mb-lg-0'>
+                <div className='row mt-5 justify-content-center subcategories-list text-center'>
+                    <div className='col-lg-3 mb-4'>
                         <nav className='nav flex-column shadow-sm p-3'>
-                            { subcategoriesList }
+                            { subcategoriesList ? subcategoriesList : <Spinner /> }
                         </nav>
                     </div>
 

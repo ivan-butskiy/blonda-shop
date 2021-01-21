@@ -4,11 +4,12 @@ import SectionItem from './components/section-item';
 import NewProductSlides from './components/new-product-slides';
 
 import BlondaShopService from '../../service/blonda-shop-service';
+import Spinner from './components/spinner';
 
 class Home extends Component {
 
     state = {
-        sectionList: []
+        sectionList: ''
     };
 
     service = new BlondaShopService();
@@ -36,7 +37,7 @@ class Home extends Component {
                     <NewProductSlides />
                     <div className='container'>
                         <div className='row mt-5 mb-5'>
-                            { sectionList }
+                            { sectionList ? sectionList : <Spinner /> }
                         </div>
                     </div>
             </Fragment>
@@ -45,5 +46,3 @@ class Home extends Component {
 };
 
 export default Home;
-
-// TODO добавить динамическое изменение Title

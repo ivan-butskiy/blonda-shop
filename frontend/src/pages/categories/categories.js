@@ -1,14 +1,15 @@
 import React, { Component, Fragment } from 'react';
 
 import CategoryItem from './category-item/category-item';
-
 import BlondaShopService from '../../service/blonda-shop-service';
+import Spinner from './spinner';
 
 class CategoriesList extends Component {
     
     state = {
-        categoryList: [],
-        section: this.props.section
+        categoryList: '',
+        section: this.props.section,
+        showSpinner: false
     };
 
     service = new BlondaShopService();
@@ -39,6 +40,7 @@ class CategoriesList extends Component {
                     })
                 })
             })
+            this.setState({ showSpinner: false })
     }
 
     componentDidMount() {
@@ -47,6 +49,7 @@ class CategoriesList extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.state.section !== this.props.section) {
+            this.setState({ showSpinner: true })
             this.setState({
                 section: this.props.section
             });
@@ -57,12 +60,25 @@ class CategoriesList extends Component {
     render() {
 
         const categoryList = this.state.categoryList;
+        const { showSpinner } = this.state;
+
+        if (showSpinner) {
+            return (
+                <Fragment>
+                    <div className='container mt-5 mb-5'>
+                        <div className='row'>
+                            <Spinner />
+                        </div>
+                    </div>
+                </Fragment>
+            );
+        }
 
         return (
             <Fragment>
                 <div className='container mt-5 mb-5'>
                     <div className='row'>
-                        { categoryList }
+                        { categoryList ? categoryList : <Spinner /> }
                     </div>
                 </div>
             </Fragment>

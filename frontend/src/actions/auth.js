@@ -119,11 +119,12 @@ export const signup = (email, first_name, last_name, password, re_password) => a
             type: SIGNUP_SUCCESS,
             payload: res.data
         });
+        return res;
     } catch (error) {
         dispatch({
             type: SIGNUP_FAIL,
         });
-    }
+    };
 };
 
 // TODO rewrite the _apiBase

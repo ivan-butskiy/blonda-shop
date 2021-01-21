@@ -40,8 +40,7 @@ class Cart extends Component {
         this.getCartList();
         this.setState({cartItems: this.props.basketList});
         this.getTotalSum();
-        
-    }
+    };
 
     getTotalSum() {
         let count = 0;
@@ -82,7 +81,7 @@ class Cart extends Component {
                     <div className='container favorites'>
                         <div className='row text-center'>
                             <div className='empty col-lg-12 p-5 bg-white rounded shadow-sm mb-5'>
-                                <i className='far fa-stars'></i>
+                                <i className='fa fa-shopping-cart'></i>
                                 <h3>Ваша корзина пока что пуста</h3>
                                 <p>Но вы ее можете пополнить, начав покупки</p>
                             </div>

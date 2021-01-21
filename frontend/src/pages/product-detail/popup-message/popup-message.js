@@ -20,7 +20,7 @@ export default class PopupMessage extends Component {
 
 
         return (
-            <div className='popup-base ' aria-live='polite' aria-atomic='true'>
+            <div className='popup-base' aria-live='polite' aria-atomic='true'>
                 <div className={ this.state.active ? 'toast show' : 'toast'}>
                     <div className='toast-header'>
                         {/* <i className='far fa-file-alt mr-2'></i>

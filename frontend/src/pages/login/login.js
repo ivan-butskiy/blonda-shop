@@ -1,54 +1,68 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../../actions/auth';
 
 import './login.css';
 
-const Login = ({ login, isAuthenticated }) => {
+class Login extends Component {
 
-    const [ formData, setFormData ] = useState({
+    state = {
         email: '',
-        password: ''
-    });
+        password: '',
+        errorLogin: false
+    }
 
-    const { email, password } = formData;
+    changeHandler(e) {
+        if (this.state.errorLogin) {
+            this.setState({ errorLogin: false });
+        };
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    };
 
-    const onChange = e => setFormData({...formData, [e.target.name]: e.target.value});
-
-    const onSubmit = e => {
+    submitHandler(e) {
         e.preventDefault();
-        login(email, password)
-            .then((res) => {
-                if (!res || res.status !== 200)
-                    console.log('Проверьте правильность введенных данных.')
+        const { email, password } = this.state;
+        this.props.login(email, password)
+            .then((result) => {
+                if (!result) {
+                    this.setState({errorLogin: true})
+                };
             });
-    }
+    };
 
-    if (isAuthenticated) {
-        return <Redirect to='/' />
-    }
-
-    const style = {
+    style = {
         backgroundImage: 'url(https://jadone.biz/image/cache/data/slider/DSC00202z-1800x1020.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center center',
         minHeight: 'calc(100vh - 76px)'
     }
 
-    return(
+    render() {
 
-        <div className='container-fluid'>
-            <div className='row no-gutter'>
-                <div className='col-md-6 d-none d-md-flex bg-image' style={style}></div>
-                <div className='col-md-6 bg-light'>
-                    <div className='login d-flex align-items-center'>
-                        <div className='container'>
-                            <div className='row mt-4'>
-                                <div className='col-lg-10 col-xl-7 mx-auto'>
-                                    <h3 className='display-4'>Авторизация</h3>
+        const { email, password, errorLogin } = this.state;
+
+        if (this.props.isAuthenticated) {
+            return <Redirect to='/' />
+        };
+
+        return(
+
+            <div className='container-fluid'>
+                <div className='row no-gutter'>
+                    <div className='col-md-6 d-none d-md-flex bg-image' style={this.style}></div>
+                    <div className='col-md-6 bg-light'>
+                        <div className='login d-flex align-items-center'>
+                            <div className='row mt-4 mb-4'>
+                                <div className='col-lg-8 text-center mx-auto auth-content'>
+                                    <h3 className='display-4 mt-3'>Авторизация</h3>
                                     <p className='text-muted mb-3'>Войдите в систему, чтобы иметь возможность заказывать товары и накапливать бонусы.</p>
-                                    <form onSubmit={e => onSubmit(e)}>
+                                    { errorLogin ? <div className='alert alert-warning' role='alert'>
+                                        Проверьте правильность введенных данных. Возможно, такого пользователя не существует
+                                    </div> : null }
+                                    <form onSubmit={e => this.submitHandler(e)}>
                                         <div className='form-group mb-3'>
                                             <input
                                                 className='form-control rounded-pill border-0 shadow-sm px-4' 
@@ -56,9 +70,9 @@ const Login = ({ login, isAuthenticated }) => {
                                                 placeholder='Email'
                                                 name='email'
                                                 value={ email }
-                                                onChange={e => onChange(e)} 
+                                                onChange={e => this.changeHandler(e)} 
                                                 required
-                                                 />
+                                                    />
                                         </div>
                                         <div className='form-group mb-3'>
                                             <input 
@@ -67,13 +81,13 @@ const Login = ({ login, isAuthenticated }) => {
                                                 placeholder='Пароль'
                                                 name='password'
                                                 value={ password }
-                                                onChange={e => onChange(e)}
+                                                onChange={e => this.changeHandler(e)}
                                                 minLength='6'
                                                 required />
                                         </div>
+                                        <button type='submit' className='btn btn-block text-uppercase mb-2 rounded-pill shadow-sm login-button-blonda'>Войти</button>
                                         <p className='mt-4 text-muted'>
                                         У вас еще нет аккаунта? Тогда вы можете пройти <Link to='/signup'>регистрацию</Link></p>
-                                        <button type='submit' className='btn btn-block text-uppercase mb-2 rounded-pill shadow-sm login-button-blonda'>Войти</button>
                                     </form>
                                 </div>
                             </div>
@@ -81,10 +95,8 @@ const Login = ({ login, isAuthenticated }) => {
                     </div>
                 </div>
             </div>
-        </div>
-
-    )
-
+        )
+    }
 };
 
 const mapStateToProps = state => ({
@@ -92,3 +104,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, { login })(Login);
+
+// TODO добавить страницу восстановления пароля

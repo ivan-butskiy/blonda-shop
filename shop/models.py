@@ -199,4 +199,4 @@ class Product(models.Model):
         return self.title
 
 
-# TODO сделать нормальные цветы и размеры
+# TODO сделать нормальные цвета и размеры

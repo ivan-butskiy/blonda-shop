@@ -19,7 +19,7 @@ export default class PopupMessageFeedback extends Component {
     render() {
 
         return (
-            <div className='popup-base ' aria-live='polite' aria-atomic='true'>
+            <div className='popup-base' aria-live='polite' aria-atomic='true'>
                 <div className={ this.state.active ? 'toast show' : 'toast'}>
                     <div className='toast-header'>
 

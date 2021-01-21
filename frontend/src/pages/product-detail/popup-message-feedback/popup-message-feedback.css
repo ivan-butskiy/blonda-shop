@@ -1,12 +1,14 @@
 .popup-base {
     position: fixed;
     min-height: 200px;
+    z-index: 5;
 }
 
 .popup-base .toast {
     position: fixed;
     bottom: 0;
     right: 0;
+    z-index: 3;
 }
 
 .popup-base .toast .toast-header {
@@ -22,6 +24,10 @@
 .popup-base .toast .toast-header i {
     color: #ff9900;
     font-size: 18px;
+}
+
+.popup-base .toast .toast-body {
+    z-index: 5
 }
 
 .popup-base .toast .toast-body i {

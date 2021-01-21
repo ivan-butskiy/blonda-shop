@@ -47,7 +47,7 @@ class FeedBackForm extends Component {
         return (
             <Fragment>
                 <form 
-                className='feedback-form'
+                className='feedback-form mb-5'
                 onSubmit={ e => this.submitHandler(e) }
                 >
                 <div className='form-group'>

@@ -66,17 +66,18 @@ class OrderRegisterView(APIView):
                 order.save()
             else:
                 order.save()
+
             for item in request.data['products']:
                 product = Product.objects.get(slug=item['slug'])
-                user.buy_sum += product.price
-                user.save()
+                if request.user.is_authenticated:
+                    user.buy_sum += product.price
+                    user.save()
 
                 OrderItem.objects.create(
                     product=product, size=item['size'],
                     color=item['color'], order=order
                 )
         
-
             return Response({'order': order.id})
         except:
             return Response({'fail': 'fail'}, status=status.HTTP_404_NOT_FOUND)

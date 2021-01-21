@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Home from './pages/home';
-// import Navbar from './hoc/navbar';
 import Hoc from './hoc/hoc';
 import Login from './pages/login';
 import SignUp from './pages/signup';

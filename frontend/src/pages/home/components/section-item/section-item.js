@@ -9,7 +9,7 @@ class SectionItem extends Component {
         slug: '',
         title: '',
         image: ''
-    }
+    };
 
     componentDidMount() {
         this.setState({
@@ -19,25 +19,23 @@ class SectionItem extends Component {
         });
     };
 
-
     render() {
 
         const { slug, image, title } = this.state;
 
         return (
-            <div className="col-lg-6 mb-3 mb-lg-0">
-                <div className="hover hover-1 text-white rounded"><img src={ image } alt={ slug } />
-                <div className="hover-overlay"></div>
-                    <div className="hover-1-content px-5 py-4">
-                        <h3 className="hover-1-title text-uppercase font-weight-bold mb-0" style={{color: 'white'}}>
+            <div className='col-lg-6 mb-3 mb-lg-0 section-item'>
+                <div className='hover hover-1 text-white rounded'><img src={ image } alt={ slug } />
+                <div className='hover-overlay'></div>
+                    <div className='hover-1-content px-5 py-4'>
+                        <h3 className='hover-1-title text-uppercase font-weight-bold mb-0'>
                             <Link to={`/categories/${slug}/`}>{ title }</Link>
                         </h3>
                     </div>
                 </div>
             </div>
-        )
-    }
-    
+        );
+    };
 };
 
 export default SectionItem;

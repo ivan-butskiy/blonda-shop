@@ -1,15 +1,3 @@
-.container-fluid .row .col-md-6 .login {
-  margin-top: 5rem;
-}
-
-.container-fluid {
-  font-family: Roboto;
-}
-
-.container-fluid .row .col-md-6 .login .container .row .col-lg-10 p {
-  margin-top: 2rem;
-}
-
 .login-button-blonda {
   background-color: #ff9900;
   border-color: #ff9900;

@@ -34,9 +34,7 @@ class OrderItem(models.Model):
 
 class Order(models.Model):
 
-    default_admin_user = User.objects.filter(is_superuser=True).last()
-
-    consumer = models.ForeignKey(User, blank=True, default=default_admin_user.id, on_delete=models.CASCADE, verbose_name='клиент')
+    consumer = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, verbose_name='клиент')
     last_name = models.CharField(max_length=30, verbose_name='фамилия')
     first_name = models.CharField(max_length=30, verbose_name='имя')
 

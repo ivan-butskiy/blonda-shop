@@ -128,7 +128,6 @@ class FilteredProductsView(APIView):
 
     def post(self, request):
         queryset = Product.objects.all()
-        print(request.data)
 
         if request.data['subcategory']:
             queryset = queryset.filter(subcategory__slug=request.data['subcategory'])

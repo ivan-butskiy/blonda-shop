@@ -2,9 +2,8 @@ import axios from 'axios';
 
 export default class BlondaShopService {
 
-    _apiBase = 'http://localhost:8000/';
-    // _apiBase = process.env.REACT_APP_API_URL;
-
+    _apiBase = 'https://bestory.herokuapp.com/';
+    
     getResource = async (url, ...args) => {
         const response = await fetch(`${this._apiBase}${url}`);
         if (!response.ok) {

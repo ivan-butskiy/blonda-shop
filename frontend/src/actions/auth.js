@@ -18,8 +18,8 @@ import {
     LOGOUT
 } from './auth-types';
 
-// const API_BASE = process.env.REACT_APP_API_URL;
-const API_BASE = 'http://localhost:8000';
+
+const API_BASE = 'https://bestory.herokuapp.com';
 
 export const checkAuthenticated = () => async dispatch => {
     if (localStorage.getItem('access')) {

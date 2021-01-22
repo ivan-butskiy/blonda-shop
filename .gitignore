@@ -1,4 +1,11 @@
 /blonda_shop/.env
+__pycache__/
+*.py[cod]
+.env
 db.sqlite3
 static
 media
+.idea
+*~
+\#*\#
+.\#*

@@ -1,19 +1,15 @@
 from pathlib import Path
 from datetime import timedelta
 import os
-from decouple import config
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = config('DEBUG',
-    default=False,
-    cast=bool)
+DEBUG = True
 
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = '_2m+%8e(f)rctv*#6+tbb*ru49jfrxrk+v4tof^c#)$k%!lbt@'
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS',
-    cast=lambda v: [s.strip() for s in v.split(',')])
+ALLOWED_HOSTS = ['www.bestory.shop', 'localhost']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -36,6 +32,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -169,16 +166,11 @@ CKEDITOR_UPLOAD_PATH = 'uploads/'
 # EMAIL_HOST_PASSWORD = ''
 # EMAIL_PORT = 587
 
-ENV = config('ENV', default='production')
+ENV = os.environ.get('ENV')
 
 if ENV == 'production':
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': config('DB_NAME', default=''),
-            'USER': config('DB_USER', default=''),
-            'PASSWORD': config('DB_PASSWORD', default=''),
-            'HOST': 'localhost',
-            'PORT': ''
-        }
-    }
+    ALLOWED_HOSTS = ['www.bestory.shop', 'localhost', '.herokuapp.com']
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    DEBUG = int(os.environ.get('DEBUG'))
+    import dj_database_url
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600)

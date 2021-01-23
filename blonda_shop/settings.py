@@ -10,7 +10,7 @@ DEBUG = False
 
 SECRET_KEY = '_2m+%8e(f)rctv*#6+tbb*ru49jfrxrk+v4tof^c#)$k%!lbt@'
 
-ALLOWED_HOSTS = ['104.131.13.213', 'www.bestory.shop', 'localhost']
+ALLOWED_HOSTS = ['68.183.56.201', 'www.bestory.shop', 'localhost']
 
 INSTALLED_APPS = [
     'django.contrib.admin',

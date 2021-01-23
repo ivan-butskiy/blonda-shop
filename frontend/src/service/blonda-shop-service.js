@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export default class BlondaShopService {
 
-    _apiBase = 'http://104.131.13.213:8000/';
+    _apiBase = 'http://68.183.56.201:8000/';
     
     getResource = async (url, ...args) => {
         const response = await fetch(`${this._apiBase}${url}`);

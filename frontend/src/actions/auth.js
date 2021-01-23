@@ -19,7 +19,7 @@ import {
 } from './auth-types';
 
 
-const API_BASE = 'http://104.131.13.213';
+const API_BASE = 'http://104.131.13.213:8000';
 
 export const checkAuthenticated = () => async dispatch => {
     if (localStorage.getItem('access')) {

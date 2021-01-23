@@ -10,7 +10,7 @@ DEBUG = False
 
 SECRET_KEY = '_2m+%8e(f)rctv*#6+tbb*ru49jfrxrk+v4tof^c#)$k%!lbt@'
 
-ALLOWED_HOSTS = ['www.bestory.shop', 'localhost']
+ALLOWED_HOSTS = ['104.131.13.213', 'www.bestory.shop', 'localhost']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -65,10 +65,10 @@ WSGI_APPLICATION = 'blonda_shop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
+        'NAME': 'bestory',
+        'USER': 'karina',
+        'PASSWORD': 'Karina08071995Blonda',
+        'HOST': 'localhost',
         'PORT': ''
     }
 }
@@ -109,7 +109,6 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'frontend/build/static'),
-    os.path.join(BASE_DIR, 'static')
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

@@ -19,7 +19,7 @@ import {
 } from './auth-types';
 
 
-const API_BASE = 'https://bestory.herokuapp.com';
+const API_BASE = 'http://104.131.13.213';
 
 export const checkAuthenticated = () => async dispatch => {
     if (localStorage.getItem('access')) {

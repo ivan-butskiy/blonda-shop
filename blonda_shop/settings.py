@@ -1,6 +1,7 @@
 from pathlib import Path
 from datetime import timedelta
 import os
+# import django_heroku
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -64,10 +65,10 @@ WSGI_APPLICATION = 'blonda_shop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'Dave_Gahan1795',
-        'HOST': 'localhost',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
         'PORT': ''
     }
 }
@@ -107,7 +108,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'frontend/build/static')
+    os.path.join(BASE_DIR, 'frontend/build/static'),
+    os.path.join(BASE_DIR, 'static')
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -179,11 +181,14 @@ CKEDITOR_UPLOAD_PATH = 'uploads/'
 # EMAIL_HOST_PASSWORD = ''
 # EMAIL_PORT = 587
 
-ENV = os.environ.get('ENV')
+# ENV = os.environ.get('ENV')
 
-if ENV == 'production':
-    ALLOWED_HOSTS = ['www.bestory.shop', 'localhost', '.herokuapp.com']
-    SECRET_KEY = os.environ.get('SECRET_KEY')
-    DEBUG = int(os.environ.get('DEBUG'))
-    import dj_database_url
-    DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+# if ENV == 'production':
+#     ALLOWED_HOSTS = ['www.bestory.shop', 'localhost', '.herokuapp.com']
+#     SECRET_KEY = os.environ.get('SECRET_KEY')
+#     DEBUG = int(os.environ.get('DEBUG'))
+#     import dj_database_url
+#     DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+
+
+# django_heroku.settings(locals())
